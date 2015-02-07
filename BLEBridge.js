@@ -54,6 +54,7 @@ var BLEBridge = function(paramd, native) {
 
     if (self.native) {
         self.stated = {};
+        self.scratchd = {};
     }
 };
 
@@ -96,8 +97,7 @@ BLEBridge.prototype.connect = function(connectd) {
 
     connected = _.defaults(connectd, {
         subscribes: [],
-        data_in: function(d, key_in, value_in) {
-            d[key_in] = value_in;
+        data_in: function(paramd) {
         },
     });
 
@@ -120,7 +120,16 @@ BLEBridge.prototype.connect = function(connectd) {
 
         var _on_data = function(data) {
             var value = Array.prototype.slice.call(data, 0);
-            connected.data_in(self.stated, c.uuid, value);
+
+            var ind = {}
+            ind[c.uuid] = value;
+
+            var paramd = {
+                ind: ind,
+                outd: self.stated,
+                scratchd: self.scratchd,
+            }
+            connected.data_in(paramd);
             self.pulled(self.stated);
         };
 

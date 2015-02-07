@@ -24,12 +24,12 @@ exports.binding = {
         'iot-ble:service-uuid': 'ffe0',
     },
     connectd: {
-        data_in: function(d, in_key, in_value) {
-            if (in_key === "ffe1") {
-                var v = in_value;
-                d.on = (v & 0x03) ? true : false
-                d.left = (v & 0x01) ? true : false
-                d.right = (v & 0x02) ? true : false
+        data_in: function(paramd) {
+            if (paramd.ind["ffe1"]) {
+                var v = paramd.ind["ffe1"];
+                paramd.outd.on = (v & 0x03) ? true : false
+                paramd.outd.left = (v & 0x01) ? true : false
+                paramd.outd.right = (v & 0x02) ? true : false
             }
         },
     },
