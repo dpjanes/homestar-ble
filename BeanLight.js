@@ -1,5 +1,5 @@
 /*
- *  ble/BeanLight.js
+ *  BeanLight.js
  *
  *  David Janes
  *  IOTDB

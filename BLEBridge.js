@@ -51,6 +51,7 @@ var BLEBridge = function(paramd, native) {
     var self = this;
 
     self.paramd = _.defaults(paramd, {
+        poll: 0
     });
     self.native = native;
 
@@ -112,7 +113,18 @@ BLEBridge.prototype.connect = function(connectd) {
         },
     });
 
-    // disconnects (happens at BLE object level)
+    if (self.connectd.poll !== undefined) {
+        self.paramd.poll = self.connectd.poll;
+    }
+
+    self._setup_ble();
+    self._setup_characteristics();
+    self._setup_polling();
+};
+
+BLEBridge.prototype._setup_ble = function() {
+    var self = this;
+
     var _on_disconnect = function(native) {
         if (native !== self.native) {
             return;
@@ -124,8 +136,11 @@ BLEBridge.prototype.connect = function(connectd) {
     }
 
     ble.on("disconnect", _on_disconnect);
+};
 
-    // characteristics 
+BLEBridge.prototype._setup_characteristics = function() {
+    var self = this;
+
     var _on_charateristic = function(c) {
         self.cd[c.uuid] = c;
 
@@ -165,6 +180,23 @@ BLEBridge.prototype.connect = function(connectd) {
             _on_charateristic(cs[ci]);
         }
     });
+};
+
+BLEBridge.prototype._setup_polling = function() {
+    var self = this;
+
+    if (!(self.paramd.poll > 0)) {
+        return;
+    }
+
+    var timer = setInterval(function() {
+        if (!self.native) {
+            clearInterval(timer);
+            return;
+        }
+
+        self.pull();
+    }, self.paramd.poll * 1000);
 };
 
 BLEBridge.prototype._forget = function() {
@@ -211,25 +243,27 @@ BLEBridge.prototype.push = function(pushd) {
     }
 
     // convert from model's representation to BLE's
-    var rawd = {}
-
     var paramd = {
-        rawd: rawd,
+        rawd: {},
         cookd: pushd,
         scratchd: self.scratchd,
     }
     self.connectd.data_out(paramd);
+    self._send(paramd);
+}
 
-    // send it
+BLEBridge.prototype._send = function(paramd) {
+    var self = this;
     var qitem = {
         run: function () {
             logger.info({
                 method: "push/qitem(run)",
                 unique_id: self.unique_id,
-                pushd: pushd,
-                raw_keys: _.keys(rawd),
+                pushd: paramd.cookd,
+                raw_keys: _.keys(paramd.rawd),
             }, "called");
-            for (var uuid in rawd) {
+
+            for (var uuid in paramd.rawd) {
                 var c = self.cd[uuid];
                 if (!c) {
                     logger.error({
@@ -239,7 +273,7 @@ BLEBridge.prototype.push = function(pushd) {
                     continue;
                 }
 
-                var value = rawd[uuid];
+                var value = paramd.rawd[uuid];
                 if (value) {
                     if (Buffer.isBuffer(value)) {
                         c.write(value);
@@ -266,6 +300,17 @@ BLEBridge.prototype.pull = function() {
         return;
     }
 
+    if (!self.connectd.data_poll) {
+        return;
+    }
+
+    var paramd = {
+        rawd: {},
+        cookd: {},
+        scratchd: self.scratchd,
+    }
+    self.connectd.data_poll(paramd);
+    self._send(paramd);
 };
 
 /* --- state --- */
