@@ -88,11 +88,18 @@ BLEBridge.prototype.discover = function() {
  *  INSTANCE
  *  This is called when the Bridge is no longer needed. When
  */
-BLEBridge.prototype.connect = function() {
+BLEBridge.prototype.connect = function(connectd) {
     var self = this;
     if (!self.native) {
         return;
     }
+
+    connected = _.defaults(connectd, {
+        subscribes: [],
+        data_in: function(d, key_in, value_in) {
+            d[key_in] = value_in;
+        },
+    });
 
     // disconnects (happens at BLE object level)
     var _on_disconnect = function(native) {
@@ -109,14 +116,12 @@ BLEBridge.prototype.connect = function() {
 
     // characteristics (happens at native)
     var _on_charateristic = function(c) {
-        self.stated[c.uuid] = null;
+        // self.stated[c.uuid] = null;
 
         var _on_data = function(data) {
             var value = Array.prototype.slice.call(data, 0);
-            if (value !== self.stated[c.uuid]) {
-                self.stated[c.uuid] = value;
-                self.pulled(self.stated);
-            }
+            connected.data_in(self.stated, c.uuid, value);
+            self.pulled(self.stated);
         };
 
         if (c.properties.indexOf('notify') !== -1) {
