@@ -33,6 +33,8 @@ var logger = bunyan.createLogger({
     module: 'BLEBridge',
 });
 
+var __queue;
+
 /**
  *  EXEMPLAR and INSTANCE
  *  <p>
@@ -55,6 +57,15 @@ var BLEBridge = function(paramd, native) {
     if (self.native) {
         self.stated = {};
         self.scratchd = {};
+        self.connectd = {};
+        self.cd = {};
+
+        /* queue is shared amongst all BLE devices */
+        if (!__queue) {
+            __queue = new iotdb.Queue("BLEBridge");
+        }
+
+        self.queue = __queue;
     }
 };
 
@@ -95,7 +106,7 @@ BLEBridge.prototype.connect = function(connectd) {
         return;
     }
 
-    connected = _.defaults(connectd, {
+    self.connectd = _.defaults(connectd, {
         subscribes: [],
         data_in: function(paramd) {
         },
@@ -114,22 +125,22 @@ BLEBridge.prototype.connect = function(connectd) {
 
     ble.on("disconnect", _on_disconnect);
 
-    // characteristics (happens at native)
+    // characteristics 
     var _on_charateristic = function(c) {
-        // self.stated[c.uuid] = null;
+        self.cd[c.uuid] = c;
 
         var _on_data = function(data) {
             var value = Array.prototype.slice.call(data, 0);
 
-            var ind = {}
-            ind[c.uuid] = value;
+            var rawd = {}
+            rawd[c.uuid] = value;
 
             var paramd = {
-                ind: ind,
-                outd: self.stated,
+                rawd: rawd,
+                cookd: self.stated,
                 scratchd: self.scratchd,
             }
-            connected.data_in(paramd);
+            self.connectd.data_in(paramd);
             self.pulled(self.stated);
         };
 
@@ -195,6 +206,53 @@ BLEBridge.prototype.push = function(pushd) {
         return;
     }
 
+    if (!self.connectd.data_out) {
+        return;
+    }
+
+    // convert from model's representation to BLE's
+    var rawd = {}
+
+    var paramd = {
+        rawd: rawd,
+        cookd: pushd,
+        scratchd: self.scratchd,
+    }
+    self.connectd.data_out(paramd);
+
+    // send it
+    var qitem = {
+        run: function () {
+            logger.info({
+                method: "push/qitem(run)",
+                unique_id: self.unique_id,
+                pushd: pushd,
+                raw_keys: _.keys(rawd),
+            }, "called");
+            for (var uuid in rawd) {
+                var c = self.cd[uuid];
+                if (!c) {
+                    logger.error({
+                        method: "push",
+                        uuid: uuid
+                    }, "uuid not found");
+                    continue;
+                }
+
+                var value = rawd[uuid];
+                if (value) {
+                    if (Buffer.isBuffer(value)) {
+                        c.write(value);
+                    } else {
+                        c.write(new Buffer(value));
+                    }
+                }
+            }
+
+            self.queue.finished(qitem);
+        }
+    };
+    self.queue.add(qitem);
 };
 
 /**
