@@ -23,9 +23,12 @@ exports.binding = {
         'iot-ble:service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
     },
     connectd: {
-        poll: 5,
+        poll: 30,
         subcribes: [ 'a495ff11c5b14b44b5121370f02d74de' ],
         data_poll: function(paramd) {
+            if (paramd.scratchd.count === undefined) {
+                paramd.scratchd.count = 0
+            }
             paramd.rawd['a495ff11c5b14b44b5121370f02d74de'] = [
                 0x80 + ((0x20 * paramd.scratchd.count++) & 0x7F),
                     0x02, // Length
@@ -38,13 +41,13 @@ exports.binding = {
             var value = paramd.rawd['a495ff11c5b14b44b5121370f02d74de']
             if (value !== undefined) {
                 if (value.length != 8) {
-                    iotdb.libs.log("# BeanLight.driver_in", "expected value.length==8", value)
+                    console.log("# BeanLight.driver_in", "expected value.length==8", value)
                 } else if (value[1] != 3) {
-                    iotdb.libs.log("# BeanLight.driver_in", "expected value[1]==3", value)
+                    console.log("# BeanLight.driver_in", "expected value[1]==3", value)
                 } else if (value[3] != 32) {
-                    iotdb.libs.log("# BeanLight.driver_in", "expected value[3]==32", value)
+                    console.log("# BeanLight.driver_in", "expected value[3]==32", value)
                 } else if (value[4] != 145) {
-                    iotdb.libs.log("# BeanLight.driver_in", "expected value[4]==145", value)
+                    console.log("# BeanLight.driver_in", "expected value[4]==145", value)
                 } else {
                     paramd.cookd['temperature'] = value[5]
                 }
