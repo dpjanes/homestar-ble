@@ -20,8 +20,8 @@ exports.binding = {
     name: "TIKeyFob",
     model: exports.Model,
     matchd: {
-        'iot-ble:advertisement-name': 'Keyfobdemo',
-        'iot-ble:service-uuid': 'ffe0',
+        'iot:vendor/advertisement-name': 'Keyfobdemo',
+        'iot:vendor/service-uuid': 'ffe0',
     },
     connectd: {
         subscribes: [ "ffe1", ],

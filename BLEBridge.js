@@ -47,10 +47,10 @@ var __queue;
  *  <li><code>disconnnected</code> - this has been disconnected from a Thing
  *  </ul>
  */
-var BLEBridge = function(paramd, native) {
+var BLEBridge = function(initd, native) {
     var self = this;
 
-    self.paramd = _.defaults(paramd, {
+    self.initd = _.defaults(initd, {
         poll: 0
     });
     self.native = native;
@@ -87,7 +87,7 @@ BLEBridge.prototype.discover = function() {
     var self = this;
 
     ble.on_services(function(error, native) {
-        self.discovered(new BLEBridge(self.paramd, native));
+        self.discovered(new BLEBridge(self.initd, native));
     });
 
     logger.info({
@@ -114,7 +114,7 @@ BLEBridge.prototype.connect = function(connectd) {
     });
 
     if (self.connectd.poll !== undefined) {
-        self.paramd.poll = self.connectd.poll;
+        self.initd.poll = self.connectd.poll;
     }
 
     self._setup_ble();
@@ -185,7 +185,7 @@ BLEBridge.prototype._setup_characteristics = function() {
 BLEBridge.prototype._setup_polling = function() {
     var self = this;
 
-    if (!(self.paramd.poll > 0)) {
+    if (!(self.initd.poll > 0)) {
         return;
     }
 
@@ -196,7 +196,7 @@ BLEBridge.prototype._setup_polling = function() {
         }
 
         self.pull();
-    }, self.paramd.poll * 1000);
+    }, self.initd.poll * 1000);
 };
 
 BLEBridge.prototype._forget = function() {
@@ -338,9 +338,9 @@ BLEBridge.prototype.meta = function() {
     return {
         "iot:thing": _.id.thing_urn.unique("BLE", self.native.p_uuid) + "/" + self.native.uuid,
         "iot:device": _.id.thing_urn.unique("BLE", self.native.p_uuid),
-        "iot-ble:advertisement-name": self.native.p_advertisement.localName,
-        "iot-ble:peripheral-uuid": self.native.p_uuid,
-        "iot-ble:service-uuid": self.native.uuid,
+        "iot:vendor/advertisement-name": self.native.p_advertisement.localName,
+        "iot:vendor/peripheral-uuid": self.native.p_uuid,
+        "iot:vendor/service-uuid": self.native.uuid,
     };
 
 };

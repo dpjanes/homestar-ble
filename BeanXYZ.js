@@ -23,7 +23,7 @@ exports.binding = {
     name: "BeanXYZ",
     model: exports.Model,
     matchd: {
-        'iot-ble:service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
+        'iot:vendor/service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
     },
     connectd: {
         poll: 1,
