@@ -4,14 +4,10 @@
 
 var iotdb = require("iotdb");
 
-var BLEBridge = require('../BLEBridge').Bridge;
 var BeanXYZ = require('../BeanXYZ');
 
-wrapper = iotdb.bridge_wrapper(new BLEBridge(), BeanXYZ.binding);
-wrapper.on('discovered', function(bridge) {
-    var model = new BeanXYZ.Model();
-    model.bind_bridge(bridge);
-
+wrapper = iotdb.bridge_wrapper(BeanXYZ.binding);
+wrapper.on('model', function(model) {
     model.on_change(function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());
     });

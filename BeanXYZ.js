@@ -21,6 +21,7 @@ exports.Model = iotdb.make_model('BeanXYZ')
 
 exports.binding = {
     model: exports.Model,
+    bridge: require('./BLEBridge').Bridge,
     matchd: {
         'iot:vendor/service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
     },

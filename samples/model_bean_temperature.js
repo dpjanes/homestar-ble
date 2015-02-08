@@ -4,14 +4,10 @@
 
 var iotdb = require("iotdb");
 
-var BLEBridge = require('../BLEBridge').Bridge;
 var BeanTemperature = require('../BeanTemperature');
 
-wrapper = iotdb.bridge_wrapper(new BLEBridge(), BeanTemperature.binding);
-wrapper.on('discovered', function(bridge) {
-    var model = new BeanTemperature.Model();
-    model.bind_bridge(bridge);
-
+wrapper = iotdb.bridge_wrapper(BeanTemperature.binding);
+wrapper.on('discovered', function(model) {
     model.on_change(function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());
     });
