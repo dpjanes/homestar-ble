@@ -17,7 +17,6 @@ exports.Model = iotdb.make_model('BeanLight')
     .make();
 
 exports.binding = {
-    name: "BeanLight",
     model: exports.Model,
     matchd: {
         'iot:vendor/service-uuid': 'a495ff10c5b14b44b5121370f02d74de',

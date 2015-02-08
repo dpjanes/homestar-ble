@@ -17,7 +17,6 @@ exports.Model = iotdb.make_model('TIKeyFob')
     .make();
 
 exports.binding = {
-    name: "TIKeyFob",
     model: exports.Model,
     matchd: {
         'iot:vendor/advertisement-name': 'Keyfobdemo',
