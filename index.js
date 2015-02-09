@@ -22,6 +22,8 @@
 
 "use strict";
 
+exports.Bridge = require('./BLEBridge').Bridge;
+
 exports.bindings = [
     require('./BeanLight').binding,
     require('./BeanTemperature').binding,
