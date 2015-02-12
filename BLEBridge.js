@@ -27,8 +27,7 @@ var _ = homestar._;
 
 var ble = require('./ble').BLE;
 
-var bunyan = require('bunyan');
-var logger = bunyan.createLogger({
+var logger = homestar.bunyan.createLogger({
     name: 'homestar-ble',
     module: 'BLEBridge',
 });

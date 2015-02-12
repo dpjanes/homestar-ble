@@ -31,8 +31,7 @@ var util = require('util');
 
 var noble = require('noble');
 
-var bunyan = require('bunyan');
-var logger = bunyan.createLogger({
+var logger = homestar.bunyan.createLogger({
     name: 'homestar-ble',
     module: 'BLE',
 });
