@@ -22,8 +22,8 @@
 
 "use strict";
 
-var iotdb = require('iotdb')
-var _ = iotdb.helpers;
+var homestar = require('homestar')
+var _ = homestar._;
 
 var ble = require('./ble').BLE;
 
@@ -32,8 +32,6 @@ var logger = bunyan.createLogger({
     name: 'homestar-ble',
     module: 'BLEBridge',
 });
-
-var __queue;
 
 /**
  *  EXEMPLAR and INSTANCE
@@ -60,13 +58,7 @@ var BLEBridge = function(initd, native) {
         self.scratchd = {};
         self.connectd = {};
         self.cd = {};
-
-        /* queue is shared amongst all BLE devices */
-        if (!__queue) {
-            __queue = new iotdb.Queue("BLEBridge");
-        }
-
-        self.queue = __queue;
+        self.queue = _.queue("BLEBridge");
     }
 };
 

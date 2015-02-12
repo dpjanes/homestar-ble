@@ -23,8 +23,8 @@
 
 "use strict";
 
-var iotdb = require('iotdb')
-var _ = iotdb.helpers;
+var homestar = require('homestar')
+var _ = homestar.helpers;
 
 var events = require('events');
 var util = require('util');

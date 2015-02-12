@@ -10,10 +10,10 @@
 
 'use strict'
 
-var iotdb = require('iotdb')
+var homestar = require('homestar')
 
-exports.Model = iotdb.make_model('BeanTemperature')
-    .i("temperature", iotdb.number.temperature.celsius)
+exports.Model = homestar.make_model('BeanTemperature')
+    .i("temperature", homestar.number.temperature.celsius)
     .make();
 
 exports.binding = {
