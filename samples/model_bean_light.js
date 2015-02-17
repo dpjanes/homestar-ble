@@ -7,6 +7,7 @@ try {
 } catch (x) {
     var wemo = require('../index')
 }
+var _ = wemo.homestar._;
 
 var wrapper = wemo.wrap("BeanLight");
 wrapper.on('model', function(model) {

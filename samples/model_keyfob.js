@@ -7,6 +7,7 @@ try {
 } catch (x) {
     var wemo = require('../index')
 }
+var _ = wemo.homestar._;
 
 var wrapper = wemo.wrap("TIKeyFob");
 wrapper.on('model', function(model) {
