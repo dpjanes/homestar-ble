@@ -1,13 +1,14 @@
 /*
- *  Use a Model to manipulate semantically
+ *  TI KeyFob: read buttons
  */
 
-var homestar = require("homestar");
-var _ = homestar._;
+try {
+    var wemo = require('homestar-wemo')
+} catch (x) {
+    var wemo = require('../index')
+}
 
-var ModelBinding = require('../TIKeyFob');
-
-wrapper = _.bridge_wrapper(ModelBinding.binding);
+var wrapper = wemo.wrap("TIKeyFob");
 wrapper.on('model', function(model) {
     model.on_change(function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());

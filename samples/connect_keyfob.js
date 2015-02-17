@@ -1,4 +1,5 @@
 /*
+ *  Refernce only: prefer model_keyfob.js
  *  Connect to TI Key Fob
  */
 

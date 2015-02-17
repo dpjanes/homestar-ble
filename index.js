@@ -22,6 +22,8 @@
 
 "use strict";
 
+var homestar = require("homestar");
+
 exports.Bridge = require('./BLEBridge').Bridge;
 
 exports.bindings = [
@@ -30,3 +32,8 @@ exports.bindings = [
     require('./BeanXYZ').binding,
     require('./TIKeyFob').binding,
 ];
+
+exports.homestar = require("homestar");
+exports.wrap = function(name) {
+    return exports.homestar.make_wrap(name, exports.bindings)
+};
