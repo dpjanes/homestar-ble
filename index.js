@@ -34,6 +34,6 @@ exports.bindings = [
 ];
 
 exports.homestar = require("homestar");
-exports.wrap = function(name) {
-    return exports.homestar.make_wrap(name, exports.bindings)
+exports.wrap = function(name, initd) {
+    return exports.homestar.make_wrap(name, exports.bindings, initd)
 };

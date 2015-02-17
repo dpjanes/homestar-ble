@@ -3,13 +3,13 @@
  */
 
 try {
-    var wemo = require('homestar-wemo')
+    var model = require('homestar-ble')
 } catch (x) {
-    var wemo = require('../index')
+    var model = require('../index')
 }
-var _ = wemo.homestar._;
+var _ = model.homestar._;
 
-var wrapper = wemo.wrap("BeanLight");
+var wrapper = model.wrap("BeanLight");
 wrapper.on('model', function(model) {
     model.on_change(function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());

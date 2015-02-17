@@ -3,13 +3,13 @@
  */
 
 try {
-    var wemo = require('homestar-wemo')
+    var model = require('homestar-ble')
 } catch (x) {
-    var wemo = require('../index')
+    var model = require('../index')
 }
-var _ = wemo.homestar._;
+var _ = model.homestar._;
 
-var wrapper = wemo.wrap("BeanTemperature");
+var wrapper = model.wrap("BeanTemperature");
 wrapper.on('discovered', function(model) {
     model.on_change(function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());
