@@ -35,3 +35,30 @@ exports.binding = {
         },
     },
 };
+
+exports.binding = {
+    model: exports.Model,
+    bridge: require('./BLEBridge').Bridge,
+    matchd: {
+        'iot:vendor/advertisement-name': 'Keyfobdemo',
+        'iot:vendor/service-uuid': 'ffe0',
+    },
+    initd: {
+        devices: 2,
+    },
+    connectd: {
+        subscribes: [ "ffe1", ],
+        data_in: function(paramd) {
+            if (paramd.rawd["ffe1"]) {
+                var v = paramd.rawd["ffe1"];
+                if (paramd.number === 0) {
+                    paramd.cookd.on = (v & 0x01) ? true : false
+                } else {
+                    paramd.cookd.on = (v & 0x02) ? true : false
+                }
+                // paramd.cookd.left = (v & 0x01) ? true : false
+                // paramd.cookd.right = (v & 0x02) ? true : false
+            }
+        },
+    },
+};

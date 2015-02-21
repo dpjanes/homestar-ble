@@ -125,6 +125,10 @@ BLE.prototype._discover_p = function(p) {
         });
 
         delete self.pd[p.uuid];
+
+        p.removeListener('connect', _on_connect);
+        p.removeListener('disconnect', _on_disconnect);
+        p.removeListener('servicesDiscover', _on_services);
     };
 
     var _on_services = function(ss) {
@@ -151,7 +155,32 @@ BLE.prototype._discover_p = function(p) {
                 "s-uuid": s.uuid,
             }, "p.serviceDiscover");
 
-            self.emit("service", s);
+
+            s.discoverCharacteristics(null, function(error, cs) {
+                if (error) {
+                    logger.info({
+                        method: "discover/on(servicesDiscover)/on(s.discoverCharacteristics)",
+                        "p-uuid": p.uuid,
+                        "s-uuid": s.uuid,
+                        "error": error,
+                    }, "s.discoverCharacteristics");
+                    return;
+                }
+
+                for (var ci in cs) {
+                    var c = cs[ci];
+                    logger.info({
+                        method: "discover/on(servicesDiscover)/on(s.discoverCharacteristics)",
+                        "p-uuid": p.uuid,
+                        "s-uuid": s.uuid,
+                        "c-uuid": c.uuid,
+                    }, "discoverCharacteristics");
+
+                    self.emit("characteristic", s, c);
+                }
+
+                self.emit("service", s);
+            });
         });
     };
 

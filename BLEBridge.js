@@ -5,6 +5,8 @@
  *  IOTDB.org
  *  2015-02-06
  *
+ *  NOTE: Errors in using multiple devices & in reconnecting
+ *
  *  Copyright [2013-2015] [David P. Janes]
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,6 +50,8 @@ var BLEBridge = function(initd, native) {
     var self = this;
 
     self.initd = _.defaults(initd, {
+        devices: 1,
+        number: 0,
         poll: 0
     });
     self.native = native;
@@ -78,7 +82,11 @@ BLEBridge.prototype.discover = function() {
     var self = this;
 
     ble.on_services(function(error, native) {
-        self.discovered(new BLEBridge(self.initd, native));
+        for (var number = 0; number < self.initd.devices; number++) {
+            self.discovered(new BLEBridge(_.defaults({
+                number: number,
+            }, self.initd), native));
+        }
     });
 
     logger.info({
@@ -142,6 +150,7 @@ BLEBridge.prototype._setup_characteristics = function() {
             rawd[c.uuid] = value;
 
             var paramd = {
+                number: self.initd.number,
                 rawd: rawd,
                 cookd: self.stated,
                 scratchd: self.scratchd,
@@ -161,16 +170,12 @@ BLEBridge.prototype._setup_characteristics = function() {
         }
     };
 
-    self.native.discoverCharacteristics(null, function(error, cs) {
-        if (error) {
-            console.log(error);
-            return;
-        }
-
+    if (self.native.characteristics) {
+        var cs = self.native.characteristics;
         for (var ci in cs) {
             _on_charateristic(cs[ci]);
         }
-    });
+    }
 };
 
 BLEBridge.prototype._setup_polling = function() {
@@ -235,6 +240,7 @@ BLEBridge.prototype.push = function(pushd) {
 
     // convert from model's representation to BLE's
     var paramd = {
+        number: self.initd.number,
         rawd: {},
         cookd: pushd,
         scratchd: self.scratchd,
@@ -328,8 +334,9 @@ BLEBridge.prototype.meta = function() {
     }
 
     return {
-        "iot:thing": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.uuid),
+        "iot:thing": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.uuid, self.initd.number),
         "iot:device": _.id.thing_urn.unique("BLE", self.native.p_uuid),
+        "iot:number": self.initd.number,
         "iot:vendor/advertisement-name": self.native.p_advertisement.localName,
         "iot:vendor/peripheral-uuid": self.native.p_uuid,
         "iot:vendor/service-uuid": self.native.uuid,

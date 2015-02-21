@@ -3,13 +3,13 @@
  */
 
 try {
-    var model = require('homestar-ble')
+    var module = require('homestar-ble')
 } catch (x) {
-    var model = require('../index')
+    var module = require('../index')
 }
-var _ = model.homestar._;
+var _ = module.homestar._;
 
-var wrapper = model.wrap("TIKeyFob");
+var wrapper = module.wrap("TIKeyFob");
 wrapper.on('model', function(model) {
     model.on_change(function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());
