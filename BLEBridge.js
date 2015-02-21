@@ -252,6 +252,7 @@ BLEBridge.prototype._send = function(paramd) {
                 unique_id: self.unique_id,
                 pushd: paramd.cookd,
                 raw_keys: _.keys(paramd.rawd),
+                // rawd: paramd.rawd,
             }, "called");
 
             for (var uuid in paramd.rawd) {

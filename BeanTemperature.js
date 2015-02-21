@@ -23,7 +23,8 @@ exports.binding = {
         'iot:vendor/service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
     },
     connectd: {
-        poll: 30,
+        xpoll: 30,
+        poll: 3,
         subcribes: [ 'a495ff11c5b14b44b5121370f02d74de' ],
         data_poll: function(paramd) {
             if (paramd.scratchd.count === undefined) {
