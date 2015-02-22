@@ -10,7 +10,7 @@ try {
 var _ = module.homestar._;
 
 var wrapper = module.wrap("BeanLight");
-wrapper.on('model', function(model) {
+wrapper.on('thing', function(model) {
     model.on("state", function(model) {
         console.log("+ state\n ", model.thing_id(), model.state());
     });
