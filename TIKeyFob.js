@@ -16,6 +16,7 @@ exports.Model = homestar.make_model('TIKeyFob')
     .i("right", homestar.boolean.on)
     .make();
 
+/*
 exports.binding = {
     model: exports.Model,
     bridge: require('./BLEBridge').Bridge,
@@ -35,6 +36,7 @@ exports.binding = {
         },
     },
 };
+*/
 
 exports.binding = {
     model: exports.Model,
@@ -56,8 +58,8 @@ exports.binding = {
                 } else {
                     paramd.cookd.on = (v & 0x02) ? true : false
                 }
-                // paramd.cookd.left = (v & 0x01) ? true : false
-                // paramd.cookd.right = (v & 0x02) ? true : false
+                paramd.cookd.left = (v & 0x01) ? true : false
+                paramd.cookd.right = (v & 0x02) ? true : false
             }
         },
     },
