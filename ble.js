@@ -23,15 +23,15 @@
 
 "use strict";
 
-var homestar = require('homestar')
-var _ = homestar.helpers;
+var iotdb = require('iotdb')
+var _ = iotdb.helpers;
 
 var events = require('events');
 var util = require('util');
 
 var noble = require('noble');
 
-var logger = homestar.bunyan.createLogger({
+var logger = iotdb.bunyan.createLogger({
     name: 'homestar-ble',
     module: 'BLE',
 });

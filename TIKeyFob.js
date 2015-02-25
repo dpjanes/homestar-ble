@@ -8,12 +8,12 @@
 
 "use strict";
 
-var homestar = require("homestar")
+var iotdb = require("iotdb")
 
-exports.Model = homestar.make_model('TIKeyFob')
-    .i("on", homestar.boolean.on)
-    .i("left", homestar.boolean.on)
-    .i("right", homestar.boolean.on)
+exports.Model = iotdb.make_model('TIKeyFob')
+    .i("on", iotdb.boolean.on)
+    .i("left", iotdb.boolean.on)
+    .i("right", iotdb.boolean.on)
     .make();
 
 /*

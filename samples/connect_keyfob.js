@@ -3,8 +3,8 @@
  *  Connect to TI Key Fob
  */
 
-var homestar = require('homestar');
-var _ = homestar.helpers;
+var iotdb = require('iotdb');
+var _ = iotdb.helpers;
 
 var BLEBridge = require('../BLEBridge').Bridge;
 var TIKeyFob = require('../TIKeyFob');

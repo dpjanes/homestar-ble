@@ -4,7 +4,7 @@
         "url": "https://github.com/dpjanes/homestar-ble/issues"
     }, 
     "dependencies": {
-        "homestar": ">=0.0.46", 
+        "iotdb": ">=0.0.46", 
         "noble": "~0.3.9"
     }, 
     "description": "HomeStar / IOTDB Bridge for Bluetooth Low Energy", 

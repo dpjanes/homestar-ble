@@ -7,7 +7,7 @@ try {
 } catch (x) {
     var module = require('../index')
 }
-var _ = module.homestar._;
+var _ = module.iotdb._;
 
 var wrapper = module.wrap("BeanXYZ");
 wrapper.on('thing', function(model) {

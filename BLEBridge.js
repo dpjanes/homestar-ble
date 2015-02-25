@@ -24,12 +24,12 @@
 
 "use strict";
 
-var homestar = require('homestar')
-var _ = homestar._;
+var iotdb = require('iotdb')
+var _ = iotdb._;
 
 var ble = require('./ble').BLE;
 
-var logger = homestar.bunyan.createLogger({
+var logger = iotdb.bunyan.createLogger({
     name: 'homestar-ble',
     module: 'BLEBridge',
 });

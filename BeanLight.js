@@ -10,11 +10,11 @@
 
 'use strict'
 
-var homestar = require('homestar')
-var _ = homestar._;
+var iotdb = require('iotdb')
+var _ = iotdb._;
 
-exports.Model = homestar.make_model('BeanLight')
-    .o("color", homestar.string.color)
+exports.Model = iotdb.make_model('BeanLight')
+    .o("color", iotdb.string.color)
     .make();
 
 exports.binding = {

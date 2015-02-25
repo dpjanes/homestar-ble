@@ -10,13 +10,13 @@
 
 'use strict'
 
-var homestar = require('homestar')
+var iotdb = require('iotdb')
 
-exports.Model = homestar.make_model('BeanXYZ')
+exports.Model = iotdb.make_model('BeanXYZ')
     .facet(":sensor.spatial")
-    .i("x", homestar.vector.number.xyz.x)
-    .i("y", homestar.vector.number.xyz.y)
-    .i("z", homestar.vector.number.xyz.z)
+    .i("x", iotdb.vector.number.xyz.x)
+    .i("y", iotdb.vector.number.xyz.y)
+    .i("z", iotdb.vector.number.xyz.z)
     .make();
 
 exports.binding = {
