@@ -9,6 +9,19 @@ You are much better using the Models (below) though obviously
 if you want to support new BLE devices you'll have some
 familarity with this.
 
+# Quick Start
+
+Change Cortado LightBle Bean to Red
+
+	$ npm install -g homestar
+	$ npm install iotdb
+	$ homestar install homestar-ble
+	$ node
+	>>> iotdb = require('iotdb')
+	>>> iot = iotdb.iot()
+	>>> things = iot.connect("BeanLight")
+	>>> things.set(":color', "#FF0000")
+
 # Models
 
 ## BeanLight
