@@ -5,7 +5,7 @@ var iotdb = require('iotdb');
 var _ = iotdb._;
 var iot = iotdb.iot();
 
-var things = iot.connect("BeanLight");
+var things = iot.connect("BeanTemperature");
 things.on("state", function(thing) {
     console.log("+ state\n ", thing.thing_id(), thing.state());
 });
@@ -15,9 +15,3 @@ things.on("meta", function(thing) {
 things.on("thing", function(thing) {
     console.log("+ discovered\n ", _.ld.compact(thing.meta().state()), "\n ", thing.thing_id());
 });
-
-var count = 0;
-var colors = [ "#FF0000", "#00FF00", "#0000FF", "#00FFFF", "#FF00FF", "#FFFF00", "#FFFFFF", ];
-var timer = setInterval(function() {
-    things.set(":color", colors[count++ % colors.length]);
-}, 2500);

@@ -23,7 +23,7 @@
 
 "use strict";
 
-var iotdb = require('iotdb')
+var iotdb = require('iotdb');
 var _ = iotdb.helpers;
 
 var events = require('events');
@@ -38,7 +38,7 @@ var logger = iotdb.bunyan.createLogger({
 
 /**
  */
-var BLE = function() {
+var BLE = function () {
     var self = this;
 
     self.pd = {};
@@ -51,7 +51,7 @@ util.inherits(BLE, events.EventEmitter);
 
 /**
  */
-BLE.prototype.search = function() {
+BLE.prototype.search = function () {
     var self = this;
 
     if (self.running) {
@@ -76,19 +76,19 @@ BLE.prototype.search = function() {
  *  be immediately sent to the callback.
  *  Note that this doesn't call search.
  */
-BLE.prototype.on_services = function(callback) {
+BLE.prototype.on_services = function (callback) {
     var self = this;
 
     for (var k in self.sd) {
         callback(null, self.sd[k]);
     }
 
-    self.on("service", function(s) {
+    self.on("service", function (s) {
         callback(null, s);
     });
 };
 
-BLE.prototype._discover_p = function(p) {
+BLE.prototype._discover_p = function (p) {
     var self = this;
 
     if (self.pd[p.uuid]) {
@@ -103,7 +103,7 @@ BLE.prototype._discover_p = function(p) {
         "advertisement": p.advertisement.manufacturerData ? p.advertisement.manufacturerData.toString('hex') : null,
     }, "p.discover");
 
-    var _on_connect = function() {
+    var _on_connect = function () {
         logger.info({
             method: "_discover_p/_on_connect",
             "p-uuid": p.uuid,
@@ -112,14 +112,14 @@ BLE.prototype._discover_p = function(p) {
         p.discoverServices();
     };
 
-    var _on_disconnect = function() {
+    var _on_disconnect = function () {
         logger.info({
             method: "_discover_p/_on_disconnect",
             "p-uuid": p.uuid,
         }, "p.disconnect");
 
         p.services.map(function (s) {
-            delete self.sd[s.ble_uuid]
+            delete self.sd[s.ble_uuid];
 
             self.emit("disconnect", s);
         });
@@ -131,7 +131,7 @@ BLE.prototype._discover_p = function(p) {
         p.removeListener('servicesDiscover', _on_services);
     };
 
-    var _on_services = function(ss) {
+    var _on_services = function (ss) {
         logger.info({
             method: "_discover_p/_on_services",
             "p-uuid": p.uuid,
@@ -156,7 +156,7 @@ BLE.prototype._discover_p = function(p) {
             }, "p.serviceDiscover");
 
 
-            s.discoverCharacteristics(null, function(error, cs) {
+            s.discoverCharacteristics(null, function (error, cs) {
                 if (error) {
                     logger.info({
                         method: "discover/on(servicesDiscover)/on(s.discoverCharacteristics)",

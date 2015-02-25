@@ -24,7 +24,7 @@
 
 "use strict";
 
-var iotdb = require('iotdb')
+var iotdb = require('iotdb');
 var _ = iotdb._;
 
 var ble = require('./ble').BLE;
@@ -37,7 +37,7 @@ var logger = iotdb.bunyan.createLogger({
 /**
  *  EXEMPLAR and INSTANCE
  *  <p>
- *  No subclassing needed! The following functions are 
+ *  No subclassing needed! The following functions are
  *  injected _after_ this is created, and before .discover and .connect
  *  <ul>
  *  <li><code>discovered</code> - tell IOTDB that we're talking to a new Thing
@@ -46,7 +46,7 @@ var logger = iotdb.bunyan.createLogger({
  *  <li><code>disconnnected</code> - this has been disconnected from a Thing
  *  </ul>
  */
-var BLEBridge = function(initd, native) {
+var BLEBridge = function (initd, native) {
     var self = this;
 
     self.initd = _.defaults(initd, {
@@ -70,7 +70,7 @@ var BLEBridge = function(initd, native) {
 var __noble;
 
 /**
- *  EXEMPLAR. 
+ *  EXEMPLAR.
  *  Discover Hue
  *  <ul>
  *  <li>look for Things (using <code>self.bridge</code> data to initialize)
@@ -78,10 +78,10 @@ var __noble;
  *  <li>create an BLEBridge(native)
  *  <li>call <code>self.discovered(bridge)</code> with it
  */
-BLEBridge.prototype.discover = function() {
+BLEBridge.prototype.discover = function () {
     var self = this;
 
-    ble.on_services(function(error, native) {
+    ble.on_services(function (error, native) {
         for (var number = 0; number < self.initd.devices; number++) {
             self.discovered(new BLEBridge(_.defaults({
                 number: number,
@@ -100,7 +100,7 @@ BLEBridge.prototype.discover = function() {
  *  INSTANCE
  *  This is called when the Bridge is no longer needed. When
  */
-BLEBridge.prototype.connect = function(connectd) {
+BLEBridge.prototype.connect = function (connectd) {
     var self = this;
     if (!self.native) {
         return;
@@ -108,8 +108,7 @@ BLEBridge.prototype.connect = function(connectd) {
 
     self.connectd = _.defaults(connectd, {
         subscribes: [],
-        data_in: function(paramd) {
-        },
+        data_in: function (paramd) {},
     });
 
     if (self.connectd.poll !== undefined) {
@@ -121,10 +120,10 @@ BLEBridge.prototype.connect = function(connectd) {
     self._setup_polling();
 };
 
-BLEBridge.prototype._setup_ble = function() {
+BLEBridge.prototype._setup_ble = function () {
     var self = this;
 
-    var _on_disconnect = function(native) {
+    var _on_disconnect = function (native) {
         if (native !== self.native) {
             return;
         }
@@ -132,21 +131,21 @@ BLEBridge.prototype._setup_ble = function() {
         ble.removeListener("disconnect", _on_disconnect);
 
         self._forget();
-    }
+    };
 
     ble.on("disconnect", _on_disconnect);
 };
 
-BLEBridge.prototype._setup_characteristics = function() {
+BLEBridge.prototype._setup_characteristics = function () {
     var self = this;
 
-    var _on_charateristic = function(c) {
+    var _on_charateristic = function (c) {
         self.cd[c.uuid] = c;
 
-        var _on_data = function(data) {
+        var _on_data = function (data) {
             var value = Array.prototype.slice.call(data, 0);
 
-            var rawd = {}
+            var rawd = {};
             rawd[c.uuid] = value;
 
             var paramd = {
@@ -154,16 +153,15 @@ BLEBridge.prototype._setup_characteristics = function() {
                 rawd: rawd,
                 cookd: self.stated,
                 scratchd: self.scratchd,
-            }
+            };
             self.connectd.data_in(paramd);
             self.pulled(self.stated);
         };
 
         if (c.properties.indexOf('notify') !== -1) {
             c.on('read', _on_data);
-            c.notify(true, function(error) {
-                if (error) {
-                }
+            c.notify(true, function (error) {
+                if (error) {}
             });
         } else if (c.properties.indexOf('notify') !== -1) {
             c.on('read', _on_data);
@@ -178,14 +176,14 @@ BLEBridge.prototype._setup_characteristics = function() {
     }
 };
 
-BLEBridge.prototype._setup_polling = function() {
+BLEBridge.prototype._setup_polling = function () {
     var self = this;
 
-    if (!(self.initd.poll > 0)) {
+    if (self.initd.poll <= 0) {
         return;
     }
 
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
         if (!self.native) {
             clearInterval(timer);
             return;
@@ -195,7 +193,7 @@ BLEBridge.prototype._setup_polling = function() {
     }, self.initd.poll * 1000);
 };
 
-BLEBridge.prototype._forget = function() {
+BLEBridge.prototype._forget = function () {
     var self = this;
     if (!self.native) {
         return;
@@ -207,13 +205,13 @@ BLEBridge.prototype._forget = function() {
 
     self.native = null;
     self.pulled();
-}
+};
 
 /**
- *  INSTANCE and EXEMPLAR (during shutdown). 
- *  This is called when the Bridge is no longer needed. 
+ *  INSTANCE and EXEMPLAR (during shutdown).
+ *  This is called when the Bridge is no longer needed.
  */
-BLEBridge.prototype.disconnect = function() {
+BLEBridge.prototype.disconnect = function () {
     var self = this;
     if (!self.native || !self.native) {
         return;
@@ -228,7 +226,7 @@ BLEBridge.prototype.disconnect = function() {
  *  INSTANCE.
  *  Send data to whatever you're taking to.
  */
-BLEBridge.prototype.push = function(pushd) {
+BLEBridge.prototype.push = function (pushd) {
     var self = this;
     if (!self.native) {
         return;
@@ -244,12 +242,12 @@ BLEBridge.prototype.push = function(pushd) {
         rawd: {},
         cookd: pushd,
         scratchd: self.scratchd,
-    }
+    };
     self.connectd.data_out(paramd);
     self._send(paramd);
-}
+};
 
-BLEBridge.prototype._send = function(paramd) {
+BLEBridge.prototype._send = function (paramd) {
     var self = this;
     var qitem = {
         run: function () {
@@ -292,7 +290,7 @@ BLEBridge.prototype._send = function(paramd) {
  *  Pull data from whatever we're talking to. You don't
  *  have to implement this if it doesn't make sense
  */
-BLEBridge.prototype.pull = function() {
+BLEBridge.prototype.pull = function () {
     var self = this;
     if (!self.native) {
         return;
@@ -306,7 +304,7 @@ BLEBridge.prototype.pull = function() {
         rawd: {},
         cookd: {},
         scratchd: self.scratchd,
-    }
+    };
     self.connectd.data_poll(paramd);
     self._send(paramd);
 };
@@ -327,7 +325,7 @@ BLEBridge.prototype.pull = function() {
  *  <li><code>schema:manufacturer</code>
  *  <li><code>schema:model</code>
  */
-BLEBridge.prototype.meta = function() {
+BLEBridge.prototype.meta = function () {
     var self = this;
     if (!self.native) {
         return;
@@ -346,29 +344,28 @@ BLEBridge.prototype.meta = function() {
 
 /**
  *  INSTANCE.
- *  Return True if this is reachable. You 
+ *  Return True if this is reachable. You
  *  do not need to worry about connect / disconnect /
  *  shutdown states, they will be always checked first.
  */
-BLEBridge.prototype.reachable = function() {
+BLEBridge.prototype.reachable = function () {
     return this.native !== null;
 };
 
 /**
  *  INSTANCE.
  *  Configure an express web page to configure this Bridge.
- *  Return the name of the Bridge, which may be 
+ *  Return the name of the Bridge, which may be
  *  listed and displayed to the user.
  */
-BLEBridge.prototype.configure = function(app) {
-};
+BLEBridge.prototype.configure = function (app) {};
 
 /* --- injected: THIS CODE WILL BE REMOVED AT RUNTIME, DO NOT MODIFY  --- */
-BLEBridge.prototype.discovered = function(bridge) {
+BLEBridge.prototype.discovered = function (bridge) {
     throw new Error("BLEBridge.discovered not implemented");
 };
 
-BLEBridge.prototype.pulled = function(pulld) {
+BLEBridge.prototype.pulled = function (pulld) {
     throw new Error("BLEBridge.pulled not implemented");
 };
 

@@ -18,13 +18,33 @@ The Bean\* classes work with
 
 This Model sets RGB color.
 
+e.g.
+
+    {
+        "color": "#FF0000"
+    }
+
 ## BeanTemperature
 
 This Model reads the temperature in Celsius.
 
+e.g.
+
+    {
+        "temperature": 20
+    }
+
 ## BeanXYZ
 
 This Model read the XYZ Orientation.
+
+e.g.
+
+    {
+        "x": 10,
+        "y": -250,
+        "z": 48
+    }
 
 ## TIKeyFob
 
