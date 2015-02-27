@@ -1,4 +1,5 @@
 /*
+ *  Note: to work, this package must have been installed by 'homestar install' 
  */
 
 var iotdb = require('iotdb');

@@ -118,11 +118,13 @@ BLE.prototype._discover_p = function (p) {
             "p-uuid": p.uuid,
         }, "p.disconnect");
 
-        p.services.map(function (s) {
-            delete self.sd[s.ble_uuid];
+        if (_.isArray(p.services)) {
+            p.services.map(function (s) {
+                delete self.sd[s.ble_uuid];
 
-            self.emit("disconnect", s);
-        });
+                self.emit("disconnect", s);
+            });
+        }
 
         delete self.pd[p.uuid];
 

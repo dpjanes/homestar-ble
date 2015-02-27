@@ -24,8 +24,9 @@
 
 var iotdb = require("iotdb");
 
-exports.Bridge = require('./BLEBridge').Bridge;
+exports.iotdb_module = true;
 
+exports.Bridge = require('./BLEBridge').Bridge;
 exports.bindings = [
     require('./BeanLight').binding,
     require('./BeanTemperature').binding,
