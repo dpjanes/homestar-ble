@@ -14,7 +14,7 @@ familarity with this.
 Change Cortado LightBle Bean to Red
 
 	$ npm install -g homestar ## with 'sudo' if error
-	$ npm install iotdb
+	$ homestar setup
 	$ homestar install homestar-ble
 	$ node
 	>>> iotdb = require('iotdb')
