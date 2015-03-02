@@ -30,6 +30,7 @@ exports.bindings = [
     require('./models/BeanTemperature').binding,
     require('./models/BeanXYZ').binding,
     require('./models/TIKeyFob').binding,
+    require('./models/BLEHeartRate').binding,
 ];
 
 exports.iotdb = require("iotdb");

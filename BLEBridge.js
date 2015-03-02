@@ -50,8 +50,7 @@ var BLEBridge = function (initd, native) {
     var self = this;
 
     self.initd = _.defaults(initd,
-        iotdb.keystore().get("bridges/BLEBridge/initd"),
-        {
+        iotdb.keystore().get("bridges/BLEBridge/initd"), {
             devices: 1,
             number: 0,
             poll: 0

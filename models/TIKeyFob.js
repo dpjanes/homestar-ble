@@ -19,7 +19,7 @@ exports.Model = iotdb.make_model('TIKeyFob')
 /*
 exports.binding = {
     model: exports.Model,
-    bridge: require('./BLEBridge').Bridge,
+    bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor/advertisement-name': 'Keyfobdemo',
         'iot:vendor/service-uuid': 'ffe0',
@@ -40,7 +40,7 @@ exports.binding = {
 
 exports.binding = {
     model: exports.Model,
-    bridge: require('./BLEBridge').Bridge,
+    bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor/advertisement-name': 'Keyfobdemo',
         'iot:vendor/service-uuid': 'ffe0',
