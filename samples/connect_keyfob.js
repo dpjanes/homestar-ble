@@ -7,7 +7,7 @@ var iotdb = require('iotdb');
 var _ = iotdb.helpers;
 
 var BLEBridge = require('../BLEBridge').Bridge;
-var TIKeyFob = require('../TIKeyFob');
+var TIKeyFob = require('../models/TIKeyFob');
 
 var bridge_exemplar = new BLEBridge();
 bridge_exemplar.discovered = function(bridge) {

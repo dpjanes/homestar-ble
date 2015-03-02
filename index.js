@@ -26,10 +26,10 @@ var iotdb = require("iotdb");
 
 exports.Bridge = require('./BLEBridge').Bridge;
 exports.bindings = [
-    require('./BeanLight').binding,
-    require('./BeanTemperature').binding,
-    require('./BeanXYZ').binding,
-    require('./TIKeyFob').binding,
+    require('./models/BeanLight').binding,
+    require('./models/BeanTemperature').binding,
+    require('./models/BeanXYZ').binding,
+    require('./models/TIKeyFob').binding,
 ];
 
 exports.iotdb = require("iotdb");
