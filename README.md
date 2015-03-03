@@ -21,6 +21,10 @@ Change Cortado LightBle Bean to Red
 	>>> iot = iotdb.iot()
 	>>> things = iot.connect("BeanLight")
 	>>> things.set(":color', "#FF0000")
+    >>>
+
+See <a href="samples/">the samples</a> for details how to add to your project,
+particularly ones called <code>iotdb\_\*</code>.
 
 # Models
 
@@ -57,6 +61,17 @@ e.g.
         "x": 10,
         "y": -250,
         "z": 48
+    }
+
+## BLEHeartRate
+
+This model reads the standard BLE Heart Rate Profile.
+
+e.g.
+
+    {
+        "rate": 65,
+        "connected": true
     }
 
 ## TIKeyFob
