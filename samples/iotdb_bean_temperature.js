@@ -8,11 +8,11 @@ var iot = iotdb.iot();
 
 var things = iot.connect("BeanTemperature");
 things.on("state", function(thing) {
-    console.log("+ state\n ", thing.thing_id(), thing.state());
+    console.log("+ state\n ", thing.thing_id(), thing.state("istate"));
 });
 things.on("meta", function(thing) {
-    console.log("+ meta\n ", thing.thing_id(), _.ld.compact(thing.meta().state()));
+    console.log("+ meta\n ", thing.thing_id(), thing.state("meta"));
 });
 things.on("thing", function(thing) {
-    console.log("+ discovered\n ", _.ld.compact(thing.meta().state()), "\n ", thing.thing_id());
+    console.log("+ discovered\n ", thing.thing_id(), thing.state("meta"));
 });
