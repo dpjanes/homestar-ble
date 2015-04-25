@@ -71,7 +71,7 @@ BLEBridge.prototype.name = function () {
 var __noble;
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#discover} for documentation.
  */
 BLEBridge.prototype.discover = function () {
     var self = this;
@@ -92,7 +92,7 @@ BLEBridge.prototype.discover = function () {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#connect} for documentation.
  */
 BLEBridge.prototype.connect = function (connectd) {
     var self = this;
@@ -205,7 +205,7 @@ BLEBridge.prototype._forget = function () {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#disconnect} for documentation.
  */
 BLEBridge.prototype.disconnect = function () {
     var self = this;
@@ -219,7 +219,7 @@ BLEBridge.prototype.disconnect = function () {
 /* --- data --- */
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#push} for documentation.
  */
 BLEBridge.prototype.push = function (pushd) {
     var self = this;
@@ -283,7 +283,7 @@ BLEBridge.prototype._send = function (paramd) {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#pull} for documentation.
  */
 BLEBridge.prototype.pull = function () {
     var self = this;
@@ -307,7 +307,7 @@ BLEBridge.prototype.pull = function () {
 /* --- state --- */
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#meta} for documentation.
  */
 BLEBridge.prototype.meta = function () {
     var self = this;
@@ -327,14 +327,14 @@ BLEBridge.prototype.meta = function () {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#reachable} for documentation.
  */
 BLEBridge.prototype.reachable = function () {
     return this.native !== null;
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#configure} for documentation.
  */
 BLEBridge.prototype.configure = function (app) {};
 
