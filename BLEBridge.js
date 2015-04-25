@@ -55,7 +55,6 @@ var BLEBridge = function (initd, native) {
     if (self.native) {
         self.stated = {};
         self.scratchd = {};
-        self.connectd = {};
         self.cd = {};
         self.queue = _.queue("BLEBridge");
     }
@@ -101,10 +100,13 @@ BLEBridge.prototype.connect = function (connectd) {
         return;
     }
 
-    self.connectd = _.defaults(connectd, {
-        subscribes: [],
-        data_in: function (paramd) {},
-    });
+    self._validate_connect(connectd);
+
+    self.connectd = _.defaults(
+        connectd, {
+            subscribes: [],
+        }, self.connectd
+    );
 
     if (self.connectd.poll !== undefined) {
         self.initd.poll = self.connectd.poll;
