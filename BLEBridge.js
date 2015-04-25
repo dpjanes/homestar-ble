@@ -334,15 +334,6 @@ BLEBridge.prototype.reachable = function () {
  */
 BLEBridge.prototype.configure = function (app) {};
 
-/* --- injected: THIS CODE WILL BE REMOVED AT RUNTIME, DO NOT MODIFY  --- */
-BLEBridge.prototype.discovered = function (bridge) {
-    throw new Error("BLEBridge.discovered not implemented");
-};
-
-BLEBridge.prototype.pulled = function (pulld) {
-    throw new Error("BLEBridge.pulled not implemented");
-};
-
 /*
  *  API
  */
