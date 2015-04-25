@@ -67,6 +67,12 @@ var BLEBridge = function (initd, native) {
     }
 };
 
+BLEBridge.prototype = new iotdb.Bridge();
+
+BLEBridge.prototype.name = function () {
+    return "BLEBridge";
+};
+
 /* --- lifecycle --- */
 
 var __noble;
