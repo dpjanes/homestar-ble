@@ -2,24 +2,26 @@
  *  TI KeyFob: read buttons
  */
 
-try {
-    var module = require('homestar-ble')
-} catch (x) {
-    var module = require('../index')
-}
-var _ = module.iotdb._;
+"use strict";
 
-var wrapper = module.wrap("TIKeyFob");
-wrapper.on('thing', function(model) {
-    model.on("state", function(model) {
+try {
+    var m = require('homestar-ble');
+} catch (x) {
+    m = require('../index');
+}
+var _ = m.iotdb._;
+
+var wrapper = m.wrap("TIKeyFob");
+wrapper.on('thing', function (model) {
+    model.on("state", function (model) {
         console.log("+ state\n ", model.thing_id(), model.state());
     });
-    model.on("meta", function(model) {
-        console.log("+ meta\n ", model.thing_id(), _.ld.compact(model.meta().state()));
+    model.on("meta", function (model) {
+        console.log("+ meta\n ", model.thing_id(), model.state("meta"));
     });
-    
-    console.log("+ discovered\n ", _.ld.compact(model.meta().state()), "\n ", model.thing_id());
-})
-wrapper.on('ignored', function(bridge) {
+
+    console.log("+ discovered\n ", model.thing_id(), model.state("meta"));
+});
+wrapper.on('ignored', function (bridge) {
     console.log("+ ignored\n ", _.ld.compact(bridge.meta()));
 });
