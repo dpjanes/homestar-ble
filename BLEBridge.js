@@ -227,6 +227,8 @@ BLEBridge.prototype.push = function (pushd) {
         return;
     }
 
+    self._validate_push(pushd);
+
     if (!self.connectd.data_out) {
         return;
     }
