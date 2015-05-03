@@ -17,7 +17,7 @@ bridge_exemplar.discovered = function (bridge) {
     console.log("+ got one\n ", meta);
 
     meta = _.ld.compact(meta);
-    if (!_.d_contains_d(meta, TIKeyFob.binding.matchd)) {
+    if (!_.d.is.superset(meta, TIKeyFob.binding.matchd)) {
         return;
     }
 
