@@ -23,6 +23,7 @@ exports.binding = {
     matchd: {
         'iot:vendor/service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
     },
+    discover: false,
     connectd: {
         data_out: function (paramd) {
             if (paramd.cookd.color) {

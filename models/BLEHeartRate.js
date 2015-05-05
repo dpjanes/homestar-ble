@@ -28,6 +28,7 @@ exports.binding = {
         'iot:vendor/service-uuid': '180d',
     },
     initd: {},
+    discover: false,
     connectd: {
         subscribes: ["2a37", ],
         data_in: function (paramd) {

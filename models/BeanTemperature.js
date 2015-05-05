@@ -22,6 +22,7 @@ exports.binding = {
     matchd: {
         'iot:vendor/service-uuid': 'a495ff10c5b14b44b5121370f02d74de',
     },
+    discover: false,
     connectd: {
         poll: 30,
         subcribes: ['a495ff11c5b14b44b5121370f02d74de'],

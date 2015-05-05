@@ -48,6 +48,7 @@ exports.binding = {
     initd: {
         devices: 2,
     },
+    discover: false,
     connectd: {
         subscribes: ["ffe1", ],
         data_in: function (paramd) {

@@ -1,5 +1,17 @@
 # homestar-ble
-IOTDB HomeStar Controller for Bluetooth Low Energy Devices
+IOTDB Home☆Star Module - Bluetooth Low Energy Devices
+
+<img src="https://github.com/dpjanes/iotdb-homestar/blob/master/docs/HomeStar.png" align="right" />
+
+# Installation
+
+Install Home☆Star first. 
+See: https://github.com/dpjanes/iotdb-homestar#installation
+
+Then
+
+    $ homestar install homestar-ble
+
 
 # BLEBridge
 
