@@ -221,15 +221,17 @@ BLEBridge.prototype.disconnect = function () {
 /**
  *  See {iotdb.bridge.Bridge#push} for documentation.
  */
-BLEBridge.prototype.push = function (pushd) {
+BLEBridge.prototype.push = function (pushd, done) {
     var self = this;
     if (!self.native) {
+        done(new Error("not connected"));
         return;
     }
 
     self._validate_push(pushd);
 
     if (!self.connectd.data_out) {
+        done(new Error("'data_out' not implemented"));
         return;
     }
 
@@ -241,10 +243,10 @@ BLEBridge.prototype.push = function (pushd) {
         scratchd: self.scratchd,
     };
     self.connectd.data_out(paramd);
-    self._send(paramd);
+    self._send(paramd, done);
 };
 
-BLEBridge.prototype._send = function (paramd) {
+BLEBridge.prototype._send = function (paramd, done) {
     var self = this;
     var qitem = {
         run: function () {
@@ -277,6 +279,7 @@ BLEBridge.prototype._send = function (paramd) {
             }
 
             self.queue.finished(qitem);
+            done(null);
         }
     };
     self.queue.add(qitem);
