@@ -21,8 +21,8 @@ exports.binding = {
     model: exports.Model,
     bridge: require('../BLEBridge').Bridge,
     matchd: {
-        'iot:vendor/advertisement-name': 'Keyfobdemo',
-        'iot:vendor/service-uuid': 'ffe0',
+        'iot:vendor.advertisement-name': 'Keyfobdemo',
+        'iot:vendor.service-uuid': 'ffe0',
     },
     connectd: {
         subscribes: [ "ffe1", ],
@@ -42,8 +42,8 @@ exports.binding = {
     model: exports.Model,
     bridge: require('../BLEBridge').Bridge,
     matchd: {
-        'iot:vendor/advertisement-name': 'Keyfobdemo',
-        'iot:vendor/service-uuid': 'ffe0',
+        'iot:vendor.advertisement-name': 'Keyfobdemo',
+        'iot:vendor.service-uuid': 'ffe0',
     },
     initd: {
         devices: 2,

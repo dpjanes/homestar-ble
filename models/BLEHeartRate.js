@@ -25,7 +25,7 @@ exports.binding = {
     model: exports.Model,
     bridge: require('../BLEBridge').Bridge,
     matchd: {
-        'iot:vendor/service-uuid': '180d',
+        'iot:vendor.service-uuid': '180d',
     },
     initd: {},
     discover: false,
