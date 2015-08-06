@@ -319,8 +319,8 @@ BLEBridge.prototype.meta = function () {
     }
 
     return {
-        "iot:thing": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.uuid, self.initd.number),
-        "iot:device": _.id.thing_urn.unique("BLE", self.native.p_uuid),
+        "iot:thing-id": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.uuid, self.initd.number),
+        "iot:device-id": _.id.thing_urn.unique("BLE", self.native.p_uuid),
         "iot:number": self.initd.number,
         "iot:vendor.advertisement-name": self.native.p_advertisement.localName,
         "iot:vendor.peripheral-uuid": self.native.p_uuid,
