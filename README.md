@@ -1,7 +1,7 @@
 # homestar-ble
 IOTDB Home☆Star Module - Bluetooth Low Energy Devices
 
-<img src="https://github.com/dpjanes/iotdb-homestar/blob/master/docs/HomeStar.png" align="right" />
+<img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 
 # Installation
 
