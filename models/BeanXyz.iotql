@@ -1,0 +1,26 @@
+CREATE MODEL BeanXyz WITH
+    schema:name = "bean-xyz",
+    iot:facet = iot-facet:sensor,
+    iot:facet = iot-facet:sensor.spatial
+ATTRIBUTE x WITH
+    schema:name = "x",
+    iot:purpose = iot-purpose:plane.x,
+    iot:type = iot:type.number,
+    iot:vector = "x/y/z",
+    iot:read = true,
+    iot:write = false
+ATTRIBUTE y WITH
+    schema:name = "y",
+    iot:purpose = iot-purpose:plane.y,
+    iot:type = iot:type.number,
+    iot:vector = "x/y/z",
+    iot:read = true,
+    iot:write = false
+ATTRIBUTE z WITH
+    schema:name = "z",
+    iot:purpose = iot-purpose:plane.z,
+    iot:vector = "x/y/z",
+    iot:type = iot:type.number,
+    iot:read = true,
+    iot:write = false
+;

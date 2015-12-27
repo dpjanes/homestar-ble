@@ -8,17 +8,9 @@
 
 "use strict";
 
-var iotdb = require("iotdb");
-
-exports.Model = iotdb.make_model('TIKeyFob')
-    .i("on", iotdb.boolean.on)
-    .i("left", iotdb.boolean.on)
-    .i("right", iotdb.boolean.on)
-    .make();
-
 /*
 exports.binding = {
-    model: exports.Model,
+    model: require('./TIKeyFob.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.advertisement-name': 'Keyfobdemo',
@@ -39,7 +31,7 @@ exports.binding = {
 */
 
 exports.binding = {
-    model: exports.Model,
+    model: require('./TIKeyFob.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.advertisement-name': 'Keyfobdemo',

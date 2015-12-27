@@ -10,17 +10,8 @@
 
 'use strict';
 
-var iotdb = require('iotdb');
-
-exports.Model = iotdb.make_model('BeanXYZ')
-    .facet(":sensor.spatial")
-    .i("x", iotdb.vector.number.xyz.x)
-    .i("y", iotdb.vector.number.xyz.y)
-    .i("z", iotdb.vector.number.xyz.z)
-    .make();
-
 exports.binding = {
-    model: exports.Model,
+    model: require('./BeanXYZ.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.service-uuid': 'a495ff10c5b14b44b5121370f02d74de',

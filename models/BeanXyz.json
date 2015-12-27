@@ -1,0 +1,67 @@
+{
+  "@context": {
+    "@base": "file:///bean-xyz",
+    "@vocab": "file:///bean-xyz#",
+    "iot": "https://iotdb.org/pub/iot#",
+    "schema": "http://schema.org/",
+    "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
+    "iot-facet": "https://iotdb.org/pub/iot-facet#",
+    "iot:facet": {
+      "@id": "https://iotdb.org/pub/iot#facet",
+      "@type": "@id"
+    },
+    "iot:purpose": {
+      "@id": "https://iotdb.org/pub/iot#purpose",
+      "@type": "@id"
+    },
+    "iot:type": {
+      "@id": "https://iotdb.org/pub/iot#type",
+      "@type": "@id"
+    }
+  },
+  "@id": "",
+  "@type": "iot:Model",
+  "schema:name": "bean-xyz",
+  "iot:facet": [
+    "iot-facet:sensor",
+    "iot-facet:sensor.spatial"
+  ],
+  "iot:attribute": [
+    {
+      "@type": "iot:Attribute",
+      "@id": "#x",
+      "schema:name": "x",
+      "iot:purpose": "iot-purpose:plane.x",
+      "iot:type": "iot:type.number",
+      "iot:vector": "x/y/z",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    },
+    {
+      "@type": "iot:Attribute",
+      "@id": "#y",
+      "schema:name": "y",
+      "iot:purpose": "iot-purpose:plane.y",
+      "iot:type": "iot:type.number",
+      "iot:vector": "x/y/z",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    },
+    {
+      "@type": "iot:Attribute",
+      "@id": "#z",
+      "schema:name": "z",
+      "iot:purpose": "iot-purpose:plane.z",
+      "iot:vector": "x/y/z",
+      "iot:type": "iot:type.number",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    }
+  ]
+}

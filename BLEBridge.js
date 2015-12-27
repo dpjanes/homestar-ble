@@ -34,6 +34,7 @@ var logger = iotdb.bunyan.createLogger({
     module: 'BLEBridge',
 });
 
+
 /**
  *  See {iotdb.bridge.Bridge#Bridge} for documentation.
  *  <p>

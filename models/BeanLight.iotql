@@ -1,0 +1,10 @@
+CREATE MODEL BeanLight WITH
+    schema:name = "bean-light"
+ATTRIBUTE color WITH
+    schema:name = "color",
+    iot:purpose = iot-purpose:color,
+    iot:type = iot:type.string,
+    iot:format = iot:format.color,
+    iot:read = false,
+    iot:write = true
+;

@@ -1,0 +1,21 @@
+CREATE MODEL TiKeyFob WITH
+    schema:name = "ti-key-fob"
+ATTRIBUTE on WITH
+    schema:name = "on",
+    iot:purpose = iot-purpose:on,
+    iot:type = iot:type.boolean,
+    iot:read = true,
+    iot:write = false
+ATTRIBUTE left WITH
+    schema:name = "on",
+    iot:purpose = iot-purpose:on,
+    iot:type = iot:type.boolean,
+    iot:read = true,
+    iot:write = false
+ATTRIBUTE right WITH
+    schema:name = "on",
+    iot:purpose = iot-purpose:on,
+    iot:type = iot:type.boolean,
+    iot:read = true,
+    iot:write = false
+;

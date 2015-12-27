@@ -1,0 +1,67 @@
+{
+  "@context": {
+    "@base": "file:///ble-heart-rate",
+    "@vocab": "file:///ble-heart-rate#",
+    "iot": "https://iotdb.org/pub/iot#",
+    "schema": "http://schema.org/",
+    "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
+    "iot:purpose": {
+      "@id": "https://iotdb.org/pub/iot#purpose",
+      "@type": "@id"
+    },
+    "iot:type": {
+      "@id": "https://iotdb.org/pub/iot#type",
+      "@type": "@id"
+    },
+    "iot-unit": "https://iotdb.org/pub/iot-unit#",
+    "iot:unit": {
+      "@id": "https://iotdb.org/pub/iot#unit",
+      "@type": "@id"
+    },
+    "wikipedia": "https://en.wikipedia.org/wiki/",
+    "iot:measuring": {
+      "@id": "https://iotdb.org/pub/iot#measuring",
+      "@type": "@id"
+    }
+  },
+  "@id": "",
+  "@type": "iot:Model",
+  "schema:name": "ble-heart-rate",
+  "iot:attribute": [
+    {
+      "@type": "iot:Attribute",
+      "@id": "#connected",
+      "schema:name": "connected",
+      "iot:purpose": "iot-purpose:sensor.connected",
+      "iot:type": "iot:type.boolean",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    },
+    {
+      "@type": "iot:Attribute",
+      "@id": "#rate",
+      "schema:name": "value",
+      "iot:purpose": "iot-purpose:value",
+      "iot:unit": "iot-unit:math.frequency.bpm",
+      "iot:measuring": "wikipedia:Heart_rate",
+      "iot:type": "iot:type.integer",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    },
+    {
+      "@type": "iot:Attribute",
+      "@id": "#expended",
+      "schema:name": "value",
+      "iot:purpose": "iot-purpose:value",
+      "iot:type": "iot:type.number",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    }
+  ]
+}

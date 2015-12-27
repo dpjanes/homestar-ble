@@ -13,12 +13,8 @@
 var iotdb = require('iotdb');
 var _ = iotdb._;
 
-exports.Model = iotdb.make_model('BeanLight')
-    .o("color", iotdb.string.color)
-    .make();
-
 exports.binding = {
-    model: exports.Model,
+    model: require('./BeanLight.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.service-uuid': 'a495ff10c5b14b44b5121370f02d74de',

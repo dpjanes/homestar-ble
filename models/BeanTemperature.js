@@ -10,14 +10,8 @@
 
 'use strict';
 
-var iotdb = require('iotdb');
-
-exports.Model = iotdb.make_model('BeanTemperature')
-    .i("temperature", iotdb.number.temperature.celsius)
-    .make();
-
 exports.binding = {
-    model: exports.Model,
+    model: require('./BeanTemperature.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.service-uuid': 'a495ff10c5b14b44b5121370f02d74de',

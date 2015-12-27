@@ -1,0 +1,10 @@
+CREATE MODEL BeanTemperature WITH
+    schema:name = "bean-temperature"
+ATTRIBUTE temperature WITH
+    schema:name = "temperature",
+    iot:purpose = iot-purpose:temperature,
+    iot:type = iot:type.number,
+    iot:unit = iot-unit:temperature.si.celsius,
+    iot:read = true,
+    iot:write = false
+;

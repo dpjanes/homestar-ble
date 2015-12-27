@@ -1,0 +1,39 @@
+{
+  "@context": {
+    "@base": "file:///bean-temperature",
+    "@vocab": "file:///bean-temperature#",
+    "iot": "https://iotdb.org/pub/iot#",
+    "schema": "http://schema.org/",
+    "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
+    "iot:purpose": {
+      "@id": "https://iotdb.org/pub/iot#purpose",
+      "@type": "@id"
+    },
+    "iot:type": {
+      "@id": "https://iotdb.org/pub/iot#type",
+      "@type": "@id"
+    },
+    "iot-unit": "https://iotdb.org/pub/iot-unit#",
+    "iot:unit": {
+      "@id": "https://iotdb.org/pub/iot#unit",
+      "@type": "@id"
+    }
+  },
+  "@id": "",
+  "@type": "iot:Model",
+  "schema:name": "bean-temperature",
+  "iot:attribute": [
+    {
+      "@type": "iot:Attribute",
+      "@id": "#temperature",
+      "schema:name": "temperature",
+      "iot:purpose": "iot-purpose:temperature",
+      "iot:type": "iot:type.number",
+      "iot:unit": "iot-unit:temperature.si.celsius",
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
+    }
+  ]
+}

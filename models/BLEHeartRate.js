@@ -8,21 +8,8 @@
 
 "use strict";
 
-var iotdb = require("iotdb");
-
-exports.Model = iotdb.make_model('BLEHeartRate')
-    .i("connected", iotdb.sensor.boolean.connected)
-    .i("rate", iotdb.integer, {
-        "iot:unit": "iot-unit:math.frequency.bpm",
-        "iot:related": "http://en.wikipedia.org/wiki/Heart_rate",
-    })
-    .i("expended", iotdb.number, {
-        "iot:unit": "iot-unit:energy.si.joule",
-    })
-    .make();
-
 exports.binding = {
-    model: exports.Model,
+    model: require('./BleHeartRate.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.service-uuid': '180d',
