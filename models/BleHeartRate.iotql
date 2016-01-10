@@ -2,22 +2,27 @@ CREATE MODEL BleHeartRate WITH
     schema:name = "ble-heart-rate"
 ATTRIBUTE connected WITH
     schema:name = "connected",
-    iot:purpose = iot-purpose:sensor.connected,
+    iot:purpose = iot-purpose:connected,
     iot:type = iot:type.boolean,
+    iot:sensor = true,
     iot:read = true,
     iot:write = false
 ATTRIBUTE rate WITH
-    schema:name = "value",
-    iot:purpose = iot-purpose:value,
+    schema:name = "rate",
+    iot:purpose = iot-purpose:rate,
     iot:unit = iot-unit:math.frequency.bpm,
-    iot:measuring = wikipedia:Heart_rate,
+    iot:what = iot-purpose:what.heart-rate,
     iot:type = iot:type.integer,
+    iot:sensor = true,
     iot:read = true,
     iot:write = false
 ATTRIBUTE expended WITH
-    schema:name = "value",
-    iot:purpose = iot-purpose:value,
+    schema:name = "energy expended",
+    iot:purpose = iot-purpose:sensor,
+    iot:what = iot-purpose:what.energy.expended,
+    iot:unit = iot-unit:energy.si.joule#3,
     iot:type = iot:type.number,
+    iot:sensor = true,
     iot:read = true,
     iot:write = false
 ;

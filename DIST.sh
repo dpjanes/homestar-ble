@@ -32,7 +32,7 @@ echo "=================="
     tar cf - \
         README.md LICENSE homestar.json package.json \
         BLEBridge.js ble.js index.js \
-        models/*.js \
+        models/*.js models/*.json \
         |
     ( cd "${NPM_DST}" && tar xvf - && npm publish ) || exit 1
     
