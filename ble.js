@@ -31,7 +31,7 @@ var util = require('util');
 
 var noble = require('noble');
 
-var logger = iotdb.bunyan.createLogger({
+var logger = iotdb.iotdb.logger({
     name: 'homestar-ble',
     module: 'BLE',
 });

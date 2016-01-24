@@ -29,7 +29,7 @@ var _ = iotdb._;
 
 var ble = require('./ble').BLE;
 
-var logger = iotdb.bunyan.createLogger({
+var logger = iotdb.iotdb.logger({
     name: 'homestar-ble',
     module: 'BLEBridge',
 });
