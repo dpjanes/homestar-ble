@@ -229,7 +229,7 @@ BLEBridge.prototype.push = function (pushd, done) {
         return;
     }
 
-    self._validate_push(pushd);
+    self._validate_push(pushd, done);
 
     if (!self.connectd.data_out) {
         done(new Error("'data_out' not implemented"));

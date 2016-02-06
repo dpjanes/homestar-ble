@@ -27,7 +27,7 @@ exports.binding = {
                     paramd.scratchd.count = 0;
                 }
 
-                var color = new _.Color(paramd.cookd.color);
+                var color = new _.color.Color(paramd.cookd.color);
                 paramd.rawd['a495ff11c5b14b44b5121370f02d74de'] = [
                     0x80 + ((0x20 * paramd.scratchd.count++) & 0x7F),
                     0x05, // Length
