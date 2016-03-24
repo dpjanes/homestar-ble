@@ -4,5 +4,5 @@
 
 "use strict";
 
-var ble = require('../ble').BLE;
+var ble = require('../ble').instance;
 ble.search();

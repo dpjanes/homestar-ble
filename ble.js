@@ -38,8 +38,13 @@ var logger = iotdb.logger({
 
 /**
  */
-var BLE = function () {
+var BLE = function (initd) {
     var self = this;
+
+    self.initd = _.d.compose.shallow(initd, {
+        connect: true,
+        rssi: false,
+    });
 
     self.pd = {};
     self.sd = {};
@@ -54,10 +59,7 @@ util.inherits(BLE, events.EventEmitter);
 BLE.prototype.search = function () {
     var self = this;
 
-    if (self.running) {
-        return;
-    }
-    self.running = true;
+    noble.stopScanning();
 
     noble.on('discover', function (p) {
         self._discover_p(p);
@@ -68,13 +70,24 @@ BLE.prototype.search = function () {
     }, "start scanning");
 
     noble.on('stateChange', function(state) {
-        console.log("state change", state);
         if (state === 'poweredOn') {
             noble.startScanning([], true);
         } else {
             noble.stopScanning();
         }
     });
+};
+
+/**
+ */
+BLE.prototype.peripherals = function (callback) {
+    var self = this;
+
+    for (var uuid in self.pd) {
+        callback(self.pd[uuid]);
+    };
+
+    callback(null);
 };
 
 
@@ -98,6 +111,8 @@ BLE.prototype.on_services = function (callback) {
 BLE.prototype._discover_p = function (p) {
     var self = this;
 
+    p.iotdb_seen = (new Date).getTime();
+
     if (self.pd[p.uuid]) {
         return;
     }
@@ -106,6 +121,7 @@ BLE.prototype._discover_p = function (p) {
     logger.info({
         method: "_discover_p",
         "p-uuid": p.uuid,
+        "rssi": p.rssi,
         "localName": p.advertisement.localName,
         "advertisement": p.advertisement.manufacturerData ? p.advertisement.manufacturerData.toString('hex') : null,
     }, "p.discover");
@@ -197,7 +213,18 @@ BLE.prototype._discover_p = function (p) {
     p.on('disconnect', _on_disconnect);
     p.on('servicesDiscover', _on_services);
 
-    p.connect();
+    self.emit("discovered", p);
+
+    if (self.initd.connect) {
+        p.connect();
+    }
+
+    if (self.initd.rssi || true) {
+        p.on('rssiUpdate', function(rssi) {
+            console.log("RSSI", rssi);
+        });
+    }
 };
 
-exports.BLE = new BLE();
+exports.instance = new BLE();
+exports.BLE = BLE;

@@ -27,7 +27,7 @@
 var iotdb = require('iotdb');
 var _ = iotdb._;
 
-var ble = require('./ble').BLE;
+var ble = require('./ble').instance;
 
 var logger = iotdb.iotdb.logger({
     name: 'homestar-ble',
