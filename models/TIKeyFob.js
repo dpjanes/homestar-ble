@@ -10,7 +10,7 @@
 
 /*
 exports.binding = {
-    model: require('./TIKeyFob.json'),
+    model: require('./ti-key-fob.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.advertisement-name': 'Keyfobdemo',

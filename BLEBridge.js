@@ -29,7 +29,7 @@ var _ = iotdb._;
 
 var ble = require('./ble').instance;
 
-var logger = iotdb.iotdb.logger({
+var logger = iotdb.logger({
     name: 'homestar-ble',
     module: 'BLEBridge',
 });

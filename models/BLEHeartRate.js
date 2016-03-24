@@ -9,7 +9,7 @@
 "use strict";
 
 exports.binding = {
-    model: require('./BleHeartRate.json'),
+    model: require('./ble-heart-rate.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.service-uuid': '180d',

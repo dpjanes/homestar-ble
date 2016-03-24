@@ -14,7 +14,7 @@ var iotdb = require('iotdb');
 var _ = iotdb._;
 
 exports.binding = {
-    model: require('./BeanLight.json'),
+    model: require('./bean-light.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
         'iot:vendor.service-uuid': 'a495ff10c5b14b44b5121370f02d74de',

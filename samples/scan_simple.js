@@ -1,5 +1,11 @@
 /*
- *  Scan around for BLE devices for fun
+ *  scan_simple.js
+ *
+ *  David Janes
+ *  IOTDB
+ *  2016-03-24
+ *
+ *  Scan for BLE devices but do not connect to them
  */
 
 "use strict";
