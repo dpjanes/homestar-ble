@@ -219,11 +219,13 @@ BLE.prototype._discover_p = function (p) {
         p.connect();
     }
 
+    /*
     if (self.initd.rssi || true) {
         p.on('rssiUpdate', function(rssi) {
             console.log("RSSI", rssi);
         });
     }
+    */
 };
 
 exports.instance = new BLE();

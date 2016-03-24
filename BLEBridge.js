@@ -27,7 +27,8 @@
 var iotdb = require('iotdb');
 var _ = iotdb._;
 
-var ble = require('./ble').instance;
+var ble = require('./ble');
+var __ble;
 
 var logger = iotdb.logger({
     name: 'homestar-ble',
@@ -69,15 +70,35 @@ BLEBridge.prototype.name = function () {
 
 /* --- lifecycle --- */
 
-var __noble;
-
 /**
  *  See {iotdb.bridge.Bridge#discover} for documentation.
  */
 BLEBridge.prototype.discover = function () {
     var self = this;
 
-    ble.on_services(function (error, native) {
+    if (!__ble) {
+        __ble = new ble.BLE({
+            connect: false,
+        });
+
+        logger.info({
+            method: "discover"
+        }, "start searching for services");
+
+        __ble.on("discovered", function (native) {
+            if (self.initd.presence) {
+                self.discovered(new BLEBridge(_.defaults({
+                    number: 0,
+                    presence: true,
+                }, self.initd), native));
+            } else {
+                native.connect();
+                // __ble.discover(native);
+            }
+        });
+    }
+
+    __ble.on_services(function (error, native) {
         for (var number = 0; number < self.initd.devices; number++) {
             self.discovered(new BLEBridge(_.defaults({
                 number: number,
@@ -85,11 +106,8 @@ BLEBridge.prototype.discover = function () {
         }
     });
 
-    logger.info({
-        method: "discover"
-    }, "start searching for services");
 
-    ble.search();
+    __ble.search();
 };
 
 /**
@@ -103,8 +121,58 @@ BLEBridge.prototype.connect = function (connectd) {
 
     self._validate_connect(connectd);
 
+    if (self.initd.presence) {
+        self._connect_presence();
+    } else {
+        self._connect_normal();
+    }
+};
+
+BLEBridge.prototype._connect_presence = function (connectd) {
+    const self = this;
+
+    let istate = {};
+
+    const _check = function() {
+        var now = (new Date).getTime();
+        self.native.iotdb_age = ( now - self.native.iotdb_seen ) / 1000.0;
+
+        var changed = false;
+        var presence = (self.native.iotdb_age < 60);
+        if (presence !== istate.presence) {
+            istate.presence = presence;
+            changed = true;
+        }
+
+        if (presence) {
+            var age = Math.round(self.native.iotdb_age);
+            if (age !== istate.age) {
+                istate.age = age;
+                changed = true;
+            }
+
+            if (self.native.rssi !== istate.rssi) {
+                istate.rssi = self.native.rssi;
+                changed = true;
+            }
+        }
+
+        if (changed) {
+            self.pulled(istate);
+        }
+    };
+
+    _check();
+
+    setInterval(_check, 5 * 1000);
+};
+
+BLEBridge.prototype._connect_normal = function (connectd) {
+    var self = this;
+
     self.connectd = _.defaults(
         connectd, {
+            connect: true,
             subscribes: [],
         }, self.connectd
     );
@@ -121,17 +189,24 @@ BLEBridge.prototype.connect = function (connectd) {
 BLEBridge.prototype._setup_ble = function () {
     var self = this;
 
+    if (!__ble) {
+        logger.error({
+            method: "_setup_ble",
+        }, "weird - __ble should be set by now");
+        return;
+    }
+
     var _on_disconnect = function (native) {
         if (native !== self.native) {
             return;
         }
 
-        ble.removeListener("disconnect", _on_disconnect);
+        __ble.removeListener("disconnect", _on_disconnect);
 
         self._forget();
     };
 
-    ble.on("disconnect", _on_disconnect);
+    __ble.on("disconnect", _on_disconnect);
 };
 
 BLEBridge.prototype._setup_characteristics = function () {
@@ -319,7 +394,18 @@ BLEBridge.prototype.meta = function () {
         return;
     }
 
+    if (self.initd.presence) {
+        return {
+            "schema:name": self.native.advertisement.localName,
+            "iot:thing-id": _.id.thing_urn.unique("BLE", self.native.uuid, "presence"),
+            "iot:device-id": _.id.thing_urn.unique("BLE", self.native.uuid),
+            "iot:vendor.advertisement-name": self.native.advertisement.localName,
+            "iot:vendor.presence": true,
+        };
+    }
+
     return {
+        "schema:name": self.native.p_advertisement.localName,
         "iot:thing-id": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.uuid, self.initd.number),
         "iot:device-id": _.id.thing_urn.unique("BLE", self.native.p_uuid),
         "iot:thing-number": self.initd.number,

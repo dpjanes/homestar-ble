@@ -11,6 +11,9 @@
 exports.binding = {
     model: require('./ble-presence.json'),
     bridge: require('../BLEBridge').Bridge,
+    matchd: {
+        "iot:vendor.presence": true,
+    },
     initd: {},
     discover: false,
     connectd: {},
