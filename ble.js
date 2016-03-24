@@ -31,7 +31,7 @@ var util = require('util');
 
 var noble = require('noble');
 
-var logger = iotdb.iotdb.logger({
+var logger = iotdb.logger({
     name: 'homestar-ble',
     module: 'BLE',
 });
@@ -67,7 +67,14 @@ BLE.prototype.search = function () {
         method: "search"
     }, "start scanning");
 
-    noble.startScanning([], true);
+    noble.on('stateChange', function(state) {
+        console.log("state change", state);
+        if (state === 'poweredOn') {
+            noble.startScanning([], true);
+        } else {
+            noble.stopScanning();
+        }
+    });
 };
 
 
