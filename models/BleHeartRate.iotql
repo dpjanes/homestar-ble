@@ -20,7 +20,7 @@ ATTRIBUTE expended WITH
     schema:name = "energy expended",
     iot:purpose = iot-purpose:sensor,
     iot:what = iot-purpose:what.energy.expended,
-    iot:unit = iot-unit:energy.si.joule#3,
+    iot:unit = iot-unit:energy.si.joule#3,  -- needs to be fixed to .3
     iot:type = iot:type.number,
     iot:sensor = true,
     iot:read = true,

@@ -1,0 +1,18 @@
+CREATE MODEL BlePresence WITH
+    schema:name = "Presence"
+ATTRIBUTE presence WITH
+    schema:name = "presence",
+    iot:purpose = iot-purpose:presence,
+    iot:type = iot:type.boolean,
+    iot:sensor = true,
+    iot:read = true,
+    iot:write = false
+ATTRIBUTE rssi WITH
+    schema:name = "rssi",
+    iot:purpose = iot-purpose:rssi,
+    iot:unit = iot-unit:math.magnitude.decibel,
+    iot:type = iot:type.integer,
+    iot:sensor = true,
+    iot:read = true,
+    iot:write = false
+;
