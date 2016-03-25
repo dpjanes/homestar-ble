@@ -90,19 +90,24 @@ BLEBridge.prototype.discover = function () {
 
         __ble.on("discovered", function (native) {
             if (self.initd.presence) {
+                native.p_uuid = native.uuid;
+                native.p_advertisement = native.advertisement;
+                native.s_uuid = "presence";
+
                 self.discovered(new BLEBridge(_.defaults({
+                    uuid: "presence",
                     number: 0,
-                    presence: true,
                 }, self.initd), native));
             } else {
                 native.connect();
-                // __ble.discover(native);
             }
         });
     }
 
     __ble.on_services(function (error, native) {
         for (var number = 0; number < self.initd.devices; number++) {
+            native.s_uuid = native.uuid;
+
             self.discovered(new BLEBridge(_.defaults({
                 number: number,
             }, self.initd), native));
@@ -405,25 +410,20 @@ BLEBridge.prototype.meta = function () {
         return;
     }
 
-    if (self.initd.presence) {
-        return {
-            "schema:name": self.native.advertisement.localName,
-            "iot:thing-id": _.id.thing_urn.unique("BLE", self.native.uuid, "presence"),
-            "iot:device-id": _.id.thing_urn.unique("BLE", self.native.uuid),
-            "iot:vendor.advertisement-name": self.native.advertisement.localName,
-            "iot:vendor.presence": true,
-        };
-    }
-
-    return {
-        "schema:name": self.native.p_advertisement.localName,
-        "iot:thing-id": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.uuid, self.initd.number),
+    var metad = {
+        "iot:thing-id": _.id.thing_urn.unique("BLE", self.native.p_uuid, self.native.s_uuid, self.initd.number),
         "iot:device-id": _.id.thing_urn.unique("BLE", self.native.p_uuid),
         "iot:thing-number": self.initd.number,
         "iot:vendor.advertisement-name": self.native.p_advertisement.localName,
         "iot:vendor.peripheral-uuid": self.native.p_uuid,
-        "iot:vendor.service-uuid": self.native.uuid,
+        "iot:vendor.service-uuid": self.native.s_uuid,
     };
+
+    if (self.native.p_advertisement.localName) {
+        metad["schema:name"] = self.native.p_advertisement.localName;
+    }
+
+    return metad;
 
 };
 
