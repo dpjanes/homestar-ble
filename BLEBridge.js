@@ -49,7 +49,10 @@ var BLEBridge = function (initd, native) {
         iotdb.keystore().get("bridges/BLEBridge/initd"), {
             devices: 1,
             number: 0,
-            poll: 0
+            poll: 0,
+            presence_timeout: 60,
+            presence_poll: 5,
+            rssi_sensitivity: 10,
         }
     );
     self.native = native;
@@ -131,14 +134,18 @@ BLEBridge.prototype.connect = function (connectd) {
 BLEBridge.prototype._connect_presence = function (connectd) {
     const self = this;
 
-    let istate = {};
+    let istate = {
+        presence: null,
+        rssi: null,
+        age: null,
+    };
 
     const _check = function() {
         var now = (new Date).getTime();
         self.native.iotdb_age = ( now - self.native.iotdb_seen ) / 1000.0;
 
         var changed = false;
-        var presence = (self.native.iotdb_age < 60);
+        var presence = (self.native.iotdb_age < self.initd.presence_timeout);
         if (presence !== istate.presence) {
             istate.presence = presence;
             changed = true;
@@ -146,13 +153,17 @@ BLEBridge.prototype._connect_presence = function (connectd) {
 
         if (presence) {
             var age = Math.round(self.native.iotdb_age);
-            if (age !== istate.age) {
+            var age_delta = Math.abs(age - istate.age);
+            if ((istate.age === null) || (age_delta >= self.initd.presence_poll)) {
+                // console.log("AGE changed", age_delta);
                 istate.age = age;
                 changed = true;
             }
 
-            if (self.native.rssi !== istate.rssi) {
+            var rssi_delta = Math.abs(self.native.rssi - istate.rssi);
+            if ((istate.rssi === null) || (rssi_delta >= self.initd.rssi_sensitivity)) {
                 istate.rssi = self.native.rssi;
+                // console.log("RSSI changed", rssi_delta);
                 changed = true;
             }
         }
@@ -164,7 +175,7 @@ BLEBridge.prototype._connect_presence = function (connectd) {
 
     _check();
 
-    setInterval(_check, 5 * 1000);
+    setInterval(_check, self.initd.presence_poll * 1000);
 };
 
 BLEBridge.prototype._connect_normal = function (connectd) {
