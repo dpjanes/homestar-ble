@@ -95,8 +95,7 @@ BLEBridge.prototype.discover = function () {
                 native.s_uuid = "presence";
 
                 self.discovered(new BLEBridge(_.defaults({
-                    uuid: "presence",
-                    number: 0,
+                    number: _.id.globals.machine_id(),
                 }, self.initd), native));
             } else {
                 native.connect();
