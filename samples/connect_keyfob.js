@@ -13,15 +13,12 @@ var TIKeyFob = require('../models/TIKeyFob');
 
 var bridge_exemplar = new BLEBridge();
 bridge_exemplar.discovered = function (bridge) {
-    var meta = bridge.meta();
-    console.log("+ got one\n ", meta);
-
-    meta = _.ld.compact(meta);
+    var meta = _.ld.compact(bridge.meta());
     if (!_.d.is.superset(meta, TIKeyFob.binding.matchd)) {
         return;
     }
 
-    console.log("+ use this");
+    console.log("+ got one\n ", meta);
 
     bridge.pulled = function (state) {
         console.log("+ state-change\n ", state);

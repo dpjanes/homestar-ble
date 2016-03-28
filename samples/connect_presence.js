@@ -15,18 +15,15 @@ var bridge_exemplar = new BLEBridge({
     presence: true,
 });
 bridge_exemplar.discovered = function (bridge) {
-    var meta = bridge.meta();
-    console.log("+ got one\n ", meta);
-
-    meta = _.ld.compact(meta);
+    var meta = _.ld.compact(bridge.meta());
     if (!_.d.is.superset(meta, BLEPresence.binding.matchd)) {
         return;
     }
 
-    console.log("+ use this");
+    console.log("+ got one\n ", meta);
 
     bridge.pulled = function (state) {
-        console.log("+ state-change\n ", meta['iot:thing-id'], meta['schema:name'], "\n ", state);
+        console.log("+ state-change\n ", meta['iot:thing-id'], meta['schema:name'] || "-", "\n ", state);
     };
     bridge.connect(BLEPresence.binding.connectd);
 };
