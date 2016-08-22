@@ -19,19 +19,15 @@ Then:
 
     $ npm install homestar-ble
 
-# Quick Start
+# Use
 
 Change Cortado LightBle Bean to Red
 
-	$ npm install -g homestar ## with 'sudo' if error
-	$ homestar setup
-	$ homestar install homestar-ble
-	$ node
-	>>> iotdb = require('iotdb')
-	>>> iot = iotdb.iot()
-	>>> things = iot.connect("BeanLight")
-	>>> things.set(":color', "#FF0000")
-    >>>
+	const iotdb = require('iotdb')
+    iotdb.use("homestar-ble")
+
+	const things = iotdb.connect("BeanLight")
+	things.set(":color', "#FF0000")
 
 See <a href="samples/">the samples</a> for details how to add to your project,
 particularly ones called <code>iotdb\_\*</code>.
