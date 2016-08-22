@@ -3,23 +3,21 @@
 
 <img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 
-# Installation
-
-Install Home☆Star first. 
-See: https://github.com/dpjanes/iotdb-homestar#installation
-
-Then
-
-    $ homestar install homestar-ble
-
-
-# BLEBridge
+# About
 
 This talks BLE by sending buffers with characteristic UUIDs.
 See the various bindings for examples.
 You are much better using the Models (below) though obviously
 if you want to support new BLE devices you'll have some
 familarity with this.
+
+# Installation
+
+* [Read this first](https://github.com/dpjanes/node-iotdb/blob/master/docs/install.md)
+
+Then:
+
+    $ npm install homestar-ble
 
 # Quick Start
 
