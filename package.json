@@ -4,20 +4,20 @@
         "url": "https://github.com/dpjanes/homestar-ble/issues"
     }, 
     "dependencies": {
-        "iotdb": ">=0.13.0", 
-        "noble": "~1.3.0"
+        "iotdb": ">=3.0.0", 
+        "noble": "~1.6.0"
     }, 
     "description": "IOTDB Bridge for Bluetooth Low Energy devices", 
     "devDependencies": {
-        "grunt": "~0.4.5", 
+        "grunt": "~1.0.1", 
         "grunt-contrib-jshint": "~1.0.0", 
         "grunt-contrib-nodeunit": "~1.0.0", 
-        "grunt-contrib-uglify": "~1.0.1", 
+        "grunt-contrib-uglify": "~2.0.0", 
         "grunt-contrib-watch": "~1.0.0", 
-        "grunt-jsbeautifier": "~0.2.10", 
-        "jshint-stylish": "~2.1.0", 
-        "load-grunt-tasks": "~3.4.1", 
-        "request": "~2.69.0"
+        "grunt-jsbeautifier": "~0.2.13", 
+        "jshint-stylish": "~2.2.1", 
+        "load-grunt-tasks": "~3.5.2", 
+        "request": "~2.74.0"
     }, 
     "homepage": "https://homestar.io", 
     "homestar": {}, 
@@ -32,5 +32,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.1.17"
+    "version": "0.1.18"
 }
