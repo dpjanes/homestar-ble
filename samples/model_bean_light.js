@@ -4,15 +4,12 @@
 
 "use strict";
 
-const m;
-try {
-    m = require('homestar-ble');
-} catch (x) {
-    m = require('../index');
-}
-const _ = m.iotdb._;
+const iotdb = require("iotdb")
+const _ = iotdb._;
 
-const wrapper = m.wrap("BeanLight");
+const homestar_ble = require('homestar-ble');
+
+const wrapper = _.bridge.wrap("BeanLight", homestar_ble.bindings);
 wrapper.on('thing', function (model) {
     model.on("state", function (model) {
         console.log("+ state\n ", model.thing_id(), model.state("istate"));
