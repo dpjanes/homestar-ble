@@ -129,9 +129,9 @@ BLEBridge.prototype.connect = function (connectd) {
     self._validate_connect(connectd);
 
     if (self.initd.presence) {
-        self._connect_presence();
+        self._connect_presence(connectd);
     } else {
-        self._connect_normal();
+        self._connect_normal(connectd);
     }
 };
 
@@ -242,6 +242,7 @@ BLEBridge.prototype._setup_characteristics = function () {
                 cookd: self.stated,
                 scratchd: self.scratchd,
             };
+
             self.connectd.data_in(paramd);
             self.pulled(self.stated);
         };

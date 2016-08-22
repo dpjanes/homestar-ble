@@ -14,8 +14,6 @@ const TIKeyFob = require('../models/TIKeyFob');
 const bridge_exemplar = new BLEBridge();
 bridge_exemplar.discovered = function (bridge) {
     var meta = bridge.meta();
-    // console.log("+ got one\n ", meta);
-
     if (!_.d.is.superset(meta, TIKeyFob.binding.matchd)) {
         console.log("#", "ignore", meta, TIKeyFob.binding.matchd);
         return;

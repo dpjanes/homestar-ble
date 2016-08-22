@@ -34,7 +34,8 @@ exports.binding = {
     model: require('./ti-key-fob.json'),
     bridge: require('../BLEBridge').Bridge,
     matchd: {
-        'iot:vendor.advertisement-name': 'Keyfobdemo',
+        // 'iot:vendor.advertisement-name': 'Keyfobdemo',
+        'iot:vendor.advertisement-name': 'TI BLE Keyfob',
         'iot:vendor.service-uuid': 'ffe0',
     },
     initd: {
@@ -44,7 +45,6 @@ exports.binding = {
     connectd: {
         subscribes: ["ffe1", ],
         data_in: function (paramd) {
-            console.log("HERE:XXX", paramd);
             if (paramd.rawd["ffe1"]) {
                 var v = paramd.rawd["ffe1"];
                 if (paramd.number === 0) {
