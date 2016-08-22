@@ -4,13 +4,14 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var _ = iotdb._;
-var iot = iotdb.iot();
+const iotdb = require('iotdb');
+const _ = iotdb._;
 
-var things = iot.connect("BeanTemperature");
-things.on("state", function (thing) {
-    console.log("+ state\n ", thing.thing_id(), thing.state("istate"));
+iotdb.use("homestar-ble");
+
+const things = iotdb.connect("BeanTemperature");
+things.on("istate", function (thing) {
+    console.log("+", "istate\n ", thing.thing_id(), thing.state("istate"));
 });
 things.on("meta", function (thing) {
     console.log("+ meta\n ", thing.thing_id(), thing.state("meta"));

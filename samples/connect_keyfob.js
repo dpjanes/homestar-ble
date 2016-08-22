@@ -5,23 +5,23 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var _ = iotdb.helpers;
+const iotdb = require('iotdb');
+const _ = iotdb._;
 
-var BLEBridge = require('../BLEBridge').Bridge;
-var TIKeyFob = require('../models/TIKeyFob');
+const BLEBridge = require('../BLEBridge').Bridge;
+const TIKeyFob = require('../models/TIKeyFob');
 
-var bridge_exemplar = new BLEBridge();
+const bridge_exemplar = new BLEBridge();
 bridge_exemplar.discovered = function (bridge) {
     var meta = bridge.meta();
-    console.log("+ got one\n ", meta);
+    // console.log("+ got one\n ", meta);
 
-    meta = _.ld.compact(meta);
     if (!_.d.is.superset(meta, TIKeyFob.binding.matchd)) {
+        console.log("#", "ignore", meta, TIKeyFob.binding.matchd);
         return;
     }
 
-    console.log("+ use this");
+    console.log("+ use this", meta);
 
     bridge.pulled = function (state) {
         console.log("+ state-change\n ", state);

@@ -10,11 +10,11 @@
 
 "use strict";
 
-var idleTimer = null;
+let idleTimer = null;
 
-var noble = require('noble');
-var BLE = require('../ble').BLE;
-var ble = new BLE({
+const noble = require('noble');
+const BLE = require('../ble').BLE;
+const ble = new BLE({
     connect: false,
 });
 ble.on("discovered", p => {
@@ -31,7 +31,7 @@ ble.on("discovered", p => {
 });
 ble.search();
 
-var dump = function() {
+const dump = function() {
     ble.peripherals(function(p) {
         if (!p) {
             console.log("");

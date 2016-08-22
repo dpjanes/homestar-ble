@@ -9,9 +9,9 @@ try {
 } catch (x) {
     m = require('../index');
 }
-var _ = m.iotdb._;
+const _ = m.iotdb._;
 
-var wrapper = m.wrap("BeanXYZ");
+const wrapper = m.wrap("BeanXYZ");
 wrapper.on('thing', function (model) {
     model.on("state", function (model) {
         console.log("+ state\n ", model.thing_id(), model.state());

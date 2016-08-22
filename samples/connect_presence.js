@@ -5,13 +5,13 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var _ = iotdb.helpers;
+const iotdb = require('iotdb');
+const _ = iotdb._;
 
-var BLEBridge = require('../BLEBridge').Bridge;
-var BLEPresence = require('../models/BLEPresence');
+const BLEBridge = require('../BLEBridge').Bridge;
+const BLEPresence = require('../models/BLEPresence');
 
-var bridge_exemplar = new BLEBridge({
+const bridge_exemplar = new BLEBridge({
     presence: true,
 });
 bridge_exemplar.discovered = function (bridge) {
