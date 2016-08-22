@@ -3,7 +3,6 @@
     "@base": "file:///ti-key-fob",
     "@vocab": "file:///ti-key-fob#",
     "iot": "https://iotdb.org/pub/iot#",
-    "schema": "http://schema.org/",
     "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
     "iot:purpose": {
       "@id": "https://iotdb.org/pub/iot#purpose",
@@ -12,44 +11,46 @@
     "iot:type": {
       "@id": "https://iotdb.org/pub/iot#type",
       "@type": "@id"
-    }
+    },
+    "schema": "http://schema.org/"
   },
   "@id": "",
   "@type": "iot:Model",
-  "schema:name": "ti-key-fob",
   "iot:attribute": [
     {
-      "@type": "iot:Attribute",
       "@id": "#on",
-      "schema:name": "on",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:on",
-      "iot:type": "iot:type.boolean",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.boolean",
+      "iot:write": false,
+      "schema:name": "on"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#left",
-      "schema:name": "on",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:on",
-      "iot:type": "iot:type.boolean",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.boolean",
+      "iot:write": false,
+      "schema:name": "on"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#right",
-      "schema:name": "on",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:on",
-      "iot:type": "iot:type.boolean",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.boolean",
+      "iot:write": false,
+      "schema:name": "on"
     }
-  ]
+  ],
+  "iot:model-id": "ti-key-fob",
+  "schema:name": "ti-key-fob"
 }

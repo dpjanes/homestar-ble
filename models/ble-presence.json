@@ -3,7 +3,6 @@
     "@base": "file:///ble-presence",
     "@vocab": "file:///ble-presence#",
     "iot": "https://iotdb.org/pub/iot#",
-    "schema": "http://schema.org/",
     "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
     "iot:purpose": {
       "@id": "https://iotdb.org/pub/iot#purpose",
@@ -13,6 +12,7 @@
       "@id": "https://iotdb.org/pub/iot#type",
       "@type": "@id"
     },
+    "schema": "http://schema.org/",
     "iot-unit": "https://iotdb.org/pub/iot-unit#",
     "iot:unit": {
       "@id": "https://iotdb.org/pub/iot#unit",
@@ -21,30 +21,31 @@
   },
   "@id": "",
   "@type": "iot:Model",
-  "schema:name": "Presence",
   "iot:attribute": [
     {
-      "@type": "iot:Attribute",
       "@id": "#presence",
-      "schema:name": "presence",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:presence",
-      "iot:type": "iot:type.boolean",
-      "iot:sensor": true,
       "iot:read": true,
+      "iot:sensor": true,
+      "iot:type": "iot:type.boolean",
       "iot:write": false,
-      "iot:actuator": false
+      "schema:name": "presence"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#rssi",
-      "schema:name": "rssi",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:rssi",
-      "iot:unit": "iot-unit:math.magnitude.decibel",
-      "iot:type": "iot:type.integer",
-      "iot:sensor": true,
       "iot:read": true,
+      "iot:sensor": true,
+      "iot:type": "iot:type.integer",
+      "iot:unit": "iot-unit:math.magnitude.decibel",
       "iot:write": false,
-      "iot:actuator": false
+      "schema:name": "rssi"
     }
-  ]
+  ],
+  "iot:model-id": "ble-presence",
+  "schema:name": "Presence"
 }

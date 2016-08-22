@@ -1,6 +1,6 @@
 /*
  *  Refernce only: prefer iotdb_presence.js
- *  Connect to TI Key Fob
+ *  Connect to iBeacon
  */
 
 "use strict";

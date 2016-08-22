@@ -3,7 +3,10 @@
     "@base": "file:///bean-light",
     "@vocab": "file:///bean-light#",
     "iot": "https://iotdb.org/pub/iot#",
-    "schema": "http://schema.org/",
+    "iot:format": {
+      "@id": "https://iotdb.org/pub/iot#format",
+      "@type": "@id"
+    },
     "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
     "iot:purpose": {
       "@id": "https://iotdb.org/pub/iot#purpose",
@@ -13,26 +16,24 @@
       "@id": "https://iotdb.org/pub/iot#type",
       "@type": "@id"
     },
-    "iot:format": {
-      "@id": "https://iotdb.org/pub/iot#format",
-      "@type": "@id"
-    }
+    "schema": "http://schema.org/"
   },
   "@id": "",
   "@type": "iot:Model",
-  "schema:name": "bean-light",
   "iot:attribute": [
     {
-      "@type": "iot:Attribute",
       "@id": "#color",
-      "schema:name": "color",
-      "iot:purpose": "iot-purpose:color",
-      "iot:type": "iot:type.string",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:format": "iot:format.color",
+      "iot:purpose": "iot-purpose:color",
       "iot:read": false,
+      "iot:sensor": true,
+      "iot:type": "iot:type.string",
       "iot:write": true,
-      "iot:sensor": false,
-      "iot:actuator": true
+      "schema:name": "color"
     }
-  ]
+  ],
+  "iot:model-id": "bean-light",
+  "schema:name": "bean-light"
 }

@@ -1,5 +1,5 @@
 # homestar-ble
-IOTDB Home☆Star Module - Bluetooth Low Energy Devices
+[IOTDB](https://github.com/dpjanes/node-iotdb) Bridge for Bluetooth Low Energy Devices
 
 <img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 
