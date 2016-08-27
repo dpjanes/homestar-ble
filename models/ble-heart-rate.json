@@ -29,7 +29,7 @@
     {
       "@id": "#connected",
       "@type": "iot:Attribute",
-      "iot:actuator": true,
+      "iot:actuator": false,
       "iot:purpose": "iot-purpose:connected",
       "iot:read": true,
       "iot:sensor": true,
@@ -40,7 +40,7 @@
     {
       "@id": "#rate",
       "@type": "iot:Attribute",
-      "iot:actuator": true,
+      "iot:actuator": false,
       "iot:purpose": "iot-purpose:rate",
       "iot:read": true,
       "iot:sensor": true,
@@ -53,7 +53,7 @@
     {
       "@id": "#expended",
       "@type": "iot:Attribute",
-      "iot:actuator": true,
+      "iot:actuator": false,
       "iot:purpose": "iot-purpose:sensor",
       "iot:read": true,
       "iot:sensor": true,

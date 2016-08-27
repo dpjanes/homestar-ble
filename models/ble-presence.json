@@ -25,7 +25,7 @@
     {
       "@id": "#presence",
       "@type": "iot:Attribute",
-      "iot:actuator": true,
+      "iot:actuator": false,
       "iot:purpose": "iot-purpose:presence",
       "iot:read": true,
       "iot:sensor": true,
@@ -36,7 +36,7 @@
     {
       "@id": "#rssi",
       "@type": "iot:Attribute",
-      "iot:actuator": true,
+      "iot:actuator": false,
       "iot:purpose": "iot-purpose:rssi",
       "iot:read": true,
       "iot:sensor": true,
