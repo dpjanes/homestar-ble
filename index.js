@@ -33,3 +33,5 @@ exports.bindings = [
     require('./models/BLEHeartRate').binding,
     require('./models/BLEPresence').binding,
 ];
+
+exports.module_folder = __dirname;
